@@ -19,9 +19,13 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -72,12 +76,12 @@ public class GameUI extends Application
 		bPane = new BorderPane();
 		bPane.setPadding(new Insets(20, 20, 20, 20));
 		bPane.setPrefSize(800.0, 600.0);
-		bPane.setStyle("-fx-border-color: brown; -fx-border-radius: 15px;" + "-fx-border-width: 2px;"
-				+ "-fx-background-color: wheat; -fx-background-radius: 15px");
+		bPane.setStyle("-fx-border-color: turquoise; -fx-border-width: 1px; -fx-background-color: black;");
 
 		// Place the title in the top center of the BorderPane
-		Label label = new Label("Pursuit");
-		label.setFont(Font.font("Comic Sans MS", FontWeight.BOLD, FontPosture.ITALIC, 20));
+		Label label = new Label("Aftermath");
+		label.setFont(Font.font("OCR A Std", FontWeight.NORMAL, FontPosture.REGULAR, 30));
+		label.setTextFill(Color.MEDIUMTURQUOISE);
 		HBox hbox = new HBox();
 		hbox.getChildren().add(label);
 		hbox.setPrefHeight(50);
@@ -93,43 +97,70 @@ public class GameUI extends Application
 		navPane.setPadding(new Insets(10, 10, 10, 10));
 		navPane.setHgap(10);
 		navPane.setVgap(10);
-		navPane.setStyle("-fx-border-width: 2px; -fx-border-color: brown;" + "-fx-border-radius: 10px");
+		navPane.setStyle("-fx-border-width: 1px; -fx-border-color: turquoise;");
 
 		btNorth = new Button("North");
+		btNorth.setStyle("-fx-border-color: turquoise; -fx-border-width: 1px; -fx-background-color: black;");
+		btNorth.setFont(Font.font("OCR A Std", FontWeight.NORMAL, FontPosture.REGULAR, 10));
+		btNorth.setTextFill(Color.MEDIUMTURQUOISE);
 		GridPane.setHalignment(btNorth, HPos.CENTER);
 		navPane.add(btNorth, 1, 0);
 		btNorth.setVisible(false);
 		
 		btEast = new Button("East");
+		btEast.setStyle("-fx-border-color: turquoise; -fx-border-width: 1px; -fx-background-color: black;");
+		btEast.setFont(Font.font("OCR A Std", FontWeight.NORMAL, FontPosture.REGULAR, 10));
+		btEast.setTextFill(Color.MEDIUMTURQUOISE);
 		navPane.add(btEast, 2, 1);
 		btEast.setVisible(false);
 		
 		btSouth = new Button("South");
+		btSouth.setStyle("-fx-border-color: turquoise; -fx-border-width: 1px; -fx-background-color: black;");
+		btSouth.setFont(Font.font("OCR A Std", FontWeight.NORMAL, FontPosture.REGULAR, 10));
+		btSouth.setTextFill(Color.MEDIUMTURQUOISE);
 		GridPane.setHalignment(btSouth, HPos.CENTER);
 		btSouth.setVisible(false);
 		navPane.add(btSouth, 1, 2);
 		
 		btWest = new Button("West");
+		btWest.setStyle("-fx-border-color: turquoise; -fx-border-width: 1px; -fx-background-color: black;");
+		btWest.setFont(Font.font("OCR A Std", FontWeight.NORMAL, FontPosture.REGULAR, 10));
+		btWest.setTextFill(Color.MEDIUMTURQUOISE);
 		navPane.add(btWest, 0, 1);
 		btWest.setVisible(false);
 
 		btExit = new Button("Exit");
+		btExit.setStyle("-fx-border-color: turquoise; -fx-border-width: 1px; -fx-background-color: black;");
+		btExit.setFont(Font.font("OCR A Std", FontWeight.NORMAL, FontPosture.REGULAR, 10));
+		btExit.setTextFill(Color.MEDIUMTURQUOISE);
 		GridPane.setHalignment(btExit, HPos.CENTER);
 		navPane.add(btExit, 1, 8);
 
 		btMap = new Button("Map");
+		btMap.setStyle("-fx-border-color: turquoise; -fx-border-width: 1px; -fx-background-color: black;");
+		btMap.setFont(Font.font("OCR A Std", FontWeight.NORMAL, FontPosture.REGULAR, 10));
+		btMap.setTextFill(Color.MEDIUMTURQUOISE);
 		GridPane.setHalignment(btMap, HPos.CENTER);
 		navPane.add(btMap, 0, 6);
 		
 		btPlay = new Button("Play");
+		btPlay.setStyle("-fx-border-color: turquoise; -fx-border-width: 1px; -fx-background-color: black;");
+		btPlay.setFont(Font.font("OCR A Std", FontWeight.NORMAL, FontPosture.REGULAR, 10));
+		btPlay.setTextFill(Color.MEDIUMTURQUOISE);
 		GridPane.setHalignment(btPlay, HPos.CENTER);
 		navPane.add(btPlay, 0, 4);
 		
 		btPause = new Button("Pause");
+		btPause.setStyle("-fx-border-color: turquoise; -fx-border-width: 1px; -fx-background-color: black;");
+		btPause.setFont(Font.font("OCR A Std", FontWeight.NORMAL, FontPosture.REGULAR, 10));
+		btPause.setTextFill(Color.MEDIUMTURQUOISE);
 		GridPane.setHalignment(btPause, HPos.CENTER);
 		navPane.add(btPause, 1, 4);	
 		
 		btReset = new Button("Reset");
+		btReset.setStyle("-fx-border-color: turquoise; -fx-border-width: 1px; -fx-background-color: black;");
+		btReset.setFont(Font.font("OCR A Std", FontWeight.NORMAL, FontPosture.REGULAR, 10));
+		btReset.setTextFill(Color.MEDIUMTURQUOISE);
 		GridPane.setHalignment(btReset, HPos.CENTER);
 		navPane.add(btReset, 2, 4);
 		
@@ -158,7 +189,11 @@ public class GameUI extends Application
 		taCenter = new TextArea("Welcome to Pursuit!\n");
 		taCenter.setPrefSize(100, 250);
 		taCenter.setWrapText(true);
-		taCenter.setStyle("-fx-font-size: 14");
+		taCenter.setStyle("-fx-border-color: turquoise; -fx-border-width: 1px;  -fx-background-color: black; -fx-font-size: 12;");
+		taCenter.setFont(Font.font("OCR A Std", FontWeight.NORMAL, FontPosture.REGULAR, 12)); // This is only changing the font. Weight and Posture does not change.
+		//Cannot solve how to change text area background to Black or dark grey
+		//Cannot solve hot to change text area text color to turquoise
+		//Issue when clicking inside text area, font changes back to standard. 
 		bPane.setBottom(taCenter);
 	}
 
@@ -355,7 +390,7 @@ public class GameUI extends Application
 				
 		// Create a scene and place it in the stage
 		Scene scene = new Scene(bPane);
-		primaryStage.setTitle("Pursuit"); // Set the stage title
+		primaryStage.setTitle("Aftermath"); // Set the stage title
 		primaryStage.setScene(scene); // Place the scene in the stage
 		primaryStage.setResizable(false);
 		primaryStage.show(); // Display the stage
