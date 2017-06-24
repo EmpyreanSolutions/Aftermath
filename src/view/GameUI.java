@@ -1,6 +1,7 @@
 package view;
 
 import javafx.util.Duration;
+import java.io.File;
 import controller.GameController;
 import controller.ReturnInfo;
 import javafx.animation.KeyFrame;
@@ -327,7 +328,10 @@ public class GameUI extends Application
 			setVisibleButtons();
 			try
 			{
-				mp = new MediaPlayer(new Media("file:///C:/Users/kbsho/BabaYaga/Pursuit/Monster-Stake-Out.mp3"));
+				//File temp = new File("Monster-Stake-Out.mp3");
+				mp = new MediaPlayer(new Media(new File("Monster-Stake-Out.mp3").toURI().toString()));
+//				mp = new MediaPlayer(new Media("file:/C:/Users/kbsho/Desktop/Projects/Aftermath/Monster-Stake-Out.mp3"));
+		
 			}
 			catch (IllegalArgumentException iae)
 			{
