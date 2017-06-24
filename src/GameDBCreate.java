@@ -59,7 +59,7 @@ public class GameDBCreate
 
 		try
 		{
-			fr = new FileReader(new File("rooms.txt"));
+			fr = new FileReader(new File("Rooms.txt"));
 			input = new Scanner(fr);
 			while(input.hasNextLine())
 			{
@@ -91,7 +91,7 @@ public class GameDBCreate
 
 	public static void main(String[] args)
 	{
-		File dbFile = new File("Game.db");
+		File dbFile = new File("Aftermath.db");
 		if(dbFile.exists())
 		{
 			System.out.println("Please delete game.db and rerun program.");
