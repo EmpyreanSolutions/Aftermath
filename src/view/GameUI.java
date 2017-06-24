@@ -24,6 +24,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaException;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -69,6 +72,8 @@ public class GameUI extends Application
 
 	Image image;
 	private ImageView iv = new ImageView();
+	
+	private MediaPlayer mp;
 	
 	private void createMainBorderPane()
 	{
@@ -189,10 +194,11 @@ public class GameUI extends Application
 		taCenter = new TextArea("Welcome to Pursuit!\n");
 		taCenter.setPrefSize(100, 250);
 		taCenter.setWrapText(true);
+
 		taCenter.setStyle("-fx-border-color: turquoise; -fx-border-width: 1px;  -fx-background-color: black; -fx-font-size: 12;"
 				+ " -fx-control-inner-background: black; -fx-text-inner-color: turquoise; -fx-highlight-fill: turquoise; -fx-highlight-text-fill: black;");
 		taCenter.setFont(Font.font("OCR A Std", FontWeight.NORMAL, FontPosture.REGULAR, 12));
-
+    
 		bPane.setBottom(taCenter);
 	}
 
@@ -319,6 +325,22 @@ public class GameUI extends Application
 			taCenter.setOnKeyPressed(eventHandler2);
 			taCenter.requestFocus();
 			setVisibleButtons();
+			try
+			{
+				mp = new MediaPlayer(new Media("file:///C:/Users/kbsho/BabaYaga/Pursuit/Monster-Stake-Out.mp3"));
+			}
+			catch (IllegalArgumentException iae)
+			{
+				System.out.println("Still incorrect");
+				System.exit(0);
+			}
+			catch (MediaException me)
+			{
+				System.out.println("Still incorrect2");
+				System.exit(0);				
+			}
+			mp.play();
+
 		});
 		
 		btPause.setOnAction(e ->
