@@ -17,7 +17,7 @@ import java.sql.Statement;
  */
 abstract public class DB
 {
-	protected String dbName = "Game.db";
+	protected String dbName = "Aftermath.db";
 	protected String sJdbc;
 	protected String sDriverName;
 	protected Connection conn;
