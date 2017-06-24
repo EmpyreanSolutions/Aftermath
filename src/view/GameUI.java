@@ -326,24 +326,23 @@ public class GameUI extends Application
 			taCenter.setOnKeyPressed(eventHandler2);
 			taCenter.requestFocus();
 			setVisibleButtons();
-			try
-			{
-				//File temp = new File("Monster-Stake-Out.mp3");
-				mp = new MediaPlayer(new Media(new File("Monster-Stake-Out.mp3").toURI().toString()));
-//				mp = new MediaPlayer(new Media("file:/C:/Users/kbsho/Desktop/Projects/Aftermath/Monster-Stake-Out.mp3"));
-		
-			}
-			catch (IllegalArgumentException iae)
-			{
-				System.out.println("Still incorrect");
-				System.exit(0);
-			}
-			catch (MediaException me)
-			{
-				System.out.println("Still incorrect2");
-				System.exit(0);				
-			}
-			mp.play();
+//			try
+//			{
+//				mp = new MediaPlayer(new Media(new File("Monster-Stake-Out.mp3").toURI().toString()));
+////				mp = new MediaPlayer(new Media("file:/C:/Users/kbsho/Desktop/Projects/Aftermath/Monster-Stake-Out.mp3"));
+//		
+//			}
+//			catch (IllegalArgumentException iae)
+//			{
+//				System.out.println("Still incorrect");
+//				System.exit(0);
+//			}
+//			catch (MediaException me)
+//			{
+//				System.out.println("Still incorrect2");
+//				System.exit(0);				
+//			}
+//			mp.play();
 
 		});
 		
@@ -386,6 +385,28 @@ public class GameUI extends Application
 		animation.setCycleCount(Timeline.INDEFINITE);		
 	}
 	
+	private void playMusic()
+	{
+		try
+		{
+			mp = new MediaPlayer(new Media(new File("Monster-Stake-Out.mp3").toURI().toString()));
+//			mp.setAutoPlay(true);
+			mp.play();
+			mp.setCycleCount(Integer.MAX_VALUE);
+		}
+		catch (IllegalArgumentException iae)
+		{
+			System.out.println("Still incorrect");
+			System.exit(0);
+		}
+		catch (MediaException me)
+		{
+			System.out.println("Still incorrect2");
+			System.exit(0);				
+		}
+//		mp.play();		
+	}
+	
 
 	/**
 	 * Method: start
@@ -412,6 +433,8 @@ public class GameUI extends Application
 		
 		// method for prey animation
 		runAnimation();
+		
+		playMusic();
 		
 		//Fit to Screen. Not sure if I want to keep this
 		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
