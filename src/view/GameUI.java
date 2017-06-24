@@ -188,6 +188,7 @@ public class GameUI extends Application
 	{
 		taCenter = new TextArea("Welcome to Pursuit!\n");
 		taCenter.setPrefSize(100, 250);
+		//taCenter.setPadding(new Insets(5, 5, 5, 5));
 		taCenter.setWrapText(true);
 		taCenter.setStyle("-fx-border-color: turquoise; -fx-border-width: 1px;  -fx-background-color: black; -fx-font-size: 12; -fx-control-inner-background: black;");
 		taCenter.setFont(Font.font("OCR A Std", FontWeight.NORMAL, FontPosture.REGULAR, 12)); // This is only changing the font. Weight and Posture does not change.
