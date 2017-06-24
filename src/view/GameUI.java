@@ -190,7 +190,7 @@ public class GameUI extends Application
 		taCenter.setPrefSize(100, 250);
 		//taCenter.setPadding(new Insets(5, 5, 5, 5));
 		taCenter.setWrapText(true);
-		taCenter.setStyle("-fx-border-color: turquoise; -fx-border-width: 1px;  -fx-background-color: black; -fx-font-size: 12; -fx-control-inner-background: black;");
+		taCenter.setStyle("-fx-border-color: turquoise; -fx-border-width: 1px;  -fx-background-color: black; -fx-font-size: 12; -fx-control-inner-background: black; -fx-text-fill: turquoise;");
 		taCenter.setFont(Font.font("OCR A Std", FontWeight.NORMAL, FontPosture.REGULAR, 12)); // This is only changing the font. Weight and Posture does not change.
 		//Cannot solve how to change text area background to Black or dark grey
 		//Cannot solve hot to change text area text color to turquoise
