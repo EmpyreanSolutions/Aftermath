@@ -24,6 +24,9 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaException;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -69,6 +72,8 @@ public class GameUI extends Application
 
 	Image image;
 	private ImageView iv = new ImageView();
+	
+	private MediaPlayer mp;
 	
 	private void createMainBorderPane()
 	{
@@ -321,6 +326,22 @@ public class GameUI extends Application
 			taCenter.setOnKeyPressed(eventHandler2);
 			taCenter.requestFocus();
 			setVisibleButtons();
+			try
+			{
+				mp = new MediaPlayer(new Media("file:///C:/Users/kbsho/BabaYaga/Pursuit/Monster-Stake-Out.mp3"));
+			}
+			catch (IllegalArgumentException iae)
+			{
+				System.out.println("Still incorrect");
+				System.exit(0);
+			}
+			catch (MediaException me)
+			{
+				System.out.println("Still incorrect2");
+				System.exit(0);				
+			}
+			mp.play();
+
 		});
 		
 		btPause.setOnAction(e ->
