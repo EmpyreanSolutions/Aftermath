@@ -12,6 +12,8 @@ import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,8 +21,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -28,10 +28,10 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -193,13 +193,12 @@ public class GameUI extends Application
 	{
 		taCenter = new TextArea("Welcome to Pursuit!\n");
 		taCenter.setPrefSize(100, 250);
-		//taCenter.setPadding(new Insets(5, 5, 5, 5));
 		taCenter.setWrapText(true);
-		taCenter.setStyle("-fx-border-color: turquoise; -fx-border-width: 1px;  -fx-background-color: black; -fx-font-size: 12; -fx-control-inner-background: black; -fx-text-fill: turquoise;");
-		taCenter.setFont(Font.font("OCR A Std", FontWeight.NORMAL, FontPosture.REGULAR, 12)); // This is only changing the font. Weight and Posture does not change.
-		//Cannot solve how to change text area background to Black or dark grey
-		//Cannot solve hot to change text area text color to turquoise
-		//Issue when clicking inside text area, font changes back to standard. 
+
+		taCenter.setStyle("-fx-border-color: turquoise; -fx-border-width: 1px;  -fx-background-color: black; -fx-font-size: 12;"
+				+ " -fx-control-inner-background: black; -fx-text-inner-color: turquoise; -fx-highlight-fill: turquoise; -fx-highlight-text-fill: black;");
+		taCenter.setFont(Font.font("OCR A Std", FontWeight.NORMAL, FontPosture.REGULAR, 12));
+    
 		bPane.setBottom(taCenter);
 	}
 
@@ -409,9 +408,16 @@ public class GameUI extends Application
 		
 		// method for prey animation
 		runAnimation();
-				
+		
+		//Fit to Screen. Not sure if I want to keep this
+		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+		primaryStage.setX(primaryScreenBounds.getMinX());
+		primaryStage.setY(primaryScreenBounds.getMinY());
+		primaryStage.setWidth(primaryScreenBounds.getWidth());
+		primaryStage.setHeight(primaryScreenBounds.getHeight());
 		// Create a scene and place it in the stage
-		Scene scene = new Scene(bPane);
+		Scene scene = new Scene(bPane,400,400);
+		scene.cursorProperty().set(Cursor.CROSSHAIR);
 		primaryStage.setTitle("Aftermath"); // Set the stage title
 		primaryStage.setScene(scene); // Place the scene in the stage
 		primaryStage.setResizable(false);

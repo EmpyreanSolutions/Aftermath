@@ -14,10 +14,10 @@ public class GameStart
 {
 	public static void main(String[] args)
 	{
-		File dbFile = new File("Game.db");
+		File dbFile = new File("Aftermath.db");
 		if (!dbFile.exists())
 		{
-			System.out.println("Game.db does not exists.");
+			System.out.println("Aftermath.db does not exists.");
 			System.exit(0);
 		}
 
