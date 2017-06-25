@@ -4,17 +4,18 @@ import java.io.File;
 
 import javafx.application.Platform;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Reflection;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -35,13 +36,20 @@ public class MainMenu extends Stage
 	private Button btOptions;
 	private Button btExit;
 	private MediaPlayer mp;
+	private ImageView mainImage;
 
 	public MainMenu()
 	{
 		buildMainMenu();
 		buildButtonActions();
 		playMusic();
-		Scene menuScene = new Scene(mainSP, 1280, 720);
+		
+		Group root = new Group();
+		mainImage = new ImageView();
+		mainImage.setImage(new Image(("MainMenu01.jpg")));
+		mainImage.toBack();
+		root.getChildren().addAll(mainImage, mainSP);
+		Scene menuScene = new Scene(root, 1280, 720);
 		this.setScene(menuScene);
 		this.setResizable(false);
 		this.show();
@@ -49,11 +57,8 @@ public class MainMenu extends Stage
 
 	private void buildMainMenu()
 	{
-		mainSP = new StackPane();
-		mainSP.setBackground(new Background(new BackgroundImage(new Image("MainMenu01.jpg"), BackgroundRepeat.NO_REPEAT,
-				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-				new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false))));
-
+		mainSP = new StackPane();		
+		
 		title = new Label();
 		title.setText("A f t e r m a t h");
 		title.setFont(Font.font("OCR A Std", FontWeight.BOLD, FontPosture.REGULAR, 30));
@@ -82,17 +87,13 @@ public class MainMenu extends Stage
 		btExit.setTextFill(Color.MEDIUMTURQUOISE);
 		btExit.setStyle("-fx-background-color: transparent; -fx-border-width: 1px; -fx-border-color: turquoise;");;
 
-		HBox menuHBox = new HBox();
-		menuHBox.getChildren().add(title);
-		menuHBox.setAlignment(Pos.TOP_CENTER);
-
 		VBox menuVBox = new VBox();
 		menuVBox.setAlignment(Pos.CENTER);
 		menuVBox.setSpacing(25);
-		menuVBox.getChildren().addAll(menuHBox, btNew, btContinue, btOptions, btExit);
+		menuVBox.getChildren().addAll( title, btNew, btContinue, btOptions, btExit);
 
 		mainSP.getChildren().add(menuVBox);
-
+		mainSP.setAlignment(Pos.CENTER);
 	}
 
 	private void buildButtonActions()
