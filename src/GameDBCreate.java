@@ -51,31 +51,40 @@ public class GameDBCreate
 	{
 		System.out.println("Creating Rooms");
 		String sql = "CREATE TABLE Rooms(RoomID INT Primary Key NOT NULL, roomName text NOT NULL, "
+				+ "northRoom int NOT NULL, eastRoom int NOT NULL, "
+				+ "southRoom int NOT NULL, westRoom int NOT NULL, "	
+				+ "upRoom int NOT NULL, downRoom int NOT NULL, "
+				+ "xCoordinate NOT NULL, "
+				+ "yCoordinate NOT NULL, "
+				+ "zCoordinate NOT NULL, "
+				+ "visited int NOT NULL, "				
 				+ "imageName text NOT NULL, "
-				+ "visited int NOT NULL, "
-				+ "northRoom int NOT NULL, eastRoom int NOT NULL, southRoom int NOT NULL, "
-				+ "westRoom int NOT NULL, roomDescription text NOT NULL)";
+				+ "roomDescription text NOT NULL)";
 		sdb.updateDB(sql);
 
 		try
 		{
-			fr = new FileReader(new File("Rooms.txt"));
+			fr = new FileReader(new File("AftermathRooms.txt"));
 			input = new Scanner(fr);
 			while(input.hasNextLine())
 			{
 				String line = input.nextLine();
 				String[] split = line.split("\t");
-				// System.out.println("0 " + split[0]);
-				// System.out.println("1 " + split[1]);
-				// System.out.println("2 " + split[2]);
-				// System.out.println("3 " + split[3]);
-				// System.out.println("4 " + split[4]);
-				// System.out.println("5 " + split[5]);
-				// System.out.println("6 " + split[6]);
-				// System.out.println("7 " + split[7]);
-				sql = "INSERT INTO Rooms(RoomID, roomName, imageName, visited, northRoom, eastRoom, southRoom, westRoom, roomDescription) "
-						+ "VALUES(" + split[0] + ", \"" + split[1] + "\", \"" + split[2] + "\", " + split[3] + ", "
-						+ split[4] + ", " + split[5] + ", " + split[6] + ", " + split[7] + ", \"" + split[8] + "\")";
+				 System.out.println("0 " + split[0]);
+				 System.out.println("1 " + split[1]);
+				 System.out.println("2 " + split[2]);
+				 System.out.println("3 " + split[3]);
+				 System.out.println("4 " + split[4]);
+				 System.out.println("5 " + split[5]);
+				 System.out.println("6 " + split[6]);
+				 System.out.println("7 " + split[7]);
+				 
+				 
+				sql = "INSERT INTO Rooms(RoomID, roomName, northRoom, eastRoom, southRoom, westRoom, upRoom, downRoom, xCoordinate, yCoordinate, zCoordinate, visited, imageName, roomDescription) "
+						+ "VALUES(" + split[0] + ", \"" + split[1] + "\",  " 
+						+ split[2] + ", " + split[3] + ", " + split[4] + ", " + split[5] + ", " + split[6] + ", " + split[7] + ", "
+						+ split[8] + ", " + split[9] + ", " + split[10]	+ ", " + split[11]
+						+ ",\"" + split[12] + "\", \"" + split[13] + "\")";
 				sdb.updateDB(sql);
 			}
 			sdb.close();
