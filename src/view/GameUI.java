@@ -29,6 +29,7 @@ import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
@@ -72,13 +73,13 @@ public class GameUI extends Application
 	private Button btExit;
 
 	private Button btMap;
+	
+	private Button btMenu;
 
 	private TextArea taCenter;
 
 	Image image;
 	private ImageView iv = new ImageView();
-	
-	private MediaPlayer mp;
 	
 	private void createMainBorderPane()
 	{
@@ -103,6 +104,22 @@ public class GameUI extends Application
 		bPane.setTop(hbox);
 	}
 
+	private void buildLeftTestPane()
+	{
+		GridPane testPane = new GridPane();
+		testPane.setStyle("-fx-background-color: black; -fx-border-width: 1px; -fx-border-color: turquoise;");
+		testPane.setPrefWidth(200);
+		btMenu = new Button();
+		btMenu.setText("Menu");
+		btMenu.setFont(Font.font("OCR A Std", FontWeight.NORMAL, FontPosture.REGULAR, 10));
+		btMenu.setTextFill(Color.MEDIUMTURQUOISE);
+		btMenu.setStyle("-fx-background-color: black; -fx-border-width: 1px; -fx-border-color: turquoise;");
+		GridPane.setHalignment(btMenu, HPos.CENTER);
+		testPane.add(btMenu, 1, 1);
+		bPane.setLeft(testPane);
+		
+	}
+	
 	private void createNavigationPane()
 	{
 		GridPane navPane = new GridPane();
@@ -367,6 +384,11 @@ public class GameUI extends Application
 			returnInfo = gc.reset();
 			taCenter.appendText("\n" + returnInfo.getMessage());
 		});
+		
+		btMenu.setOnAction(e ->
+		{
+			new MainMenu();
+		});
 	}
 	
 	private void runAnimation()
@@ -392,28 +414,6 @@ public class GameUI extends Application
 		animation.setCycleCount(Timeline.INDEFINITE);		
 	}
 	
-	private void playMusic()
-	{
-		try
-		{
-			mp = new MediaPlayer(new Media(new File("Monster-Stake-Out.mp3").toURI().toString()));
-//			mp.setAutoPlay(true);
-			mp.play();
-			mp.setCycleCount(Integer.MAX_VALUE);
-		}
-		catch (IllegalArgumentException iae)
-		{
-			System.out.println("Still incorrect");
-			System.exit(0);
-		}
-		catch (MediaException me)
-		{
-			System.out.println("Still incorrect2");
-			System.exit(0);				
-		}
-//		mp.play();		
-	}
-	
 
 	/**
 	 * Method: start
@@ -426,6 +426,8 @@ public class GameUI extends Application
 		// Create main BorderPane including title
 		createMainBorderPane();
 
+		// Create Temp Test Pane on left
+		buildLeftTestPane();
 		// Create Navigation Pane on right using GridPane
 		createNavigationPane();
 
@@ -440,8 +442,6 @@ public class GameUI extends Application
 		
 		// method for prey animation
 		runAnimation();
-		
-		playMusic();
 		
 		//Fit to Screen. Not sure if I want to keep this
 		/*
