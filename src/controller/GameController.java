@@ -18,14 +18,15 @@ public class GameController
 {
 	private static SQLiteDB sdb;
 	private Player player;
-	private Lifeform prey;
+	private Lifeform predator;
 	private Room playerRoom;
-	private Room preyRoom;
+	private Room predatorRoom;
+	private Room targetRoom;
 	private String returnMessage;
 	private ReturnInfo returnInfo;
 	
 	private Point3D ptPlayer;
-	private Point3D ptPrey;
+	private Point3D ptTarget;
 	private Point3D ptNorth;
 	private Point3D ptEast;
 	private Point3D ptSouth;
@@ -34,18 +35,19 @@ public class GameController
 	public GameController()
 	{
 		playerRoom = new Room().getRoom(1001);
-		preyRoom = new Room().getRoom(1035);
+		predatorRoom = new Room().getRoom(1035);
+		targetRoom = new Room().getRoom(1001);
 		player = new Player("Kenneth",playerRoom);
-		prey = new Lifeform("Shiva",preyRoom);
+		predator = new Lifeform("Shiva",predatorRoom);
 		returnMessage = "";
 		ptPlayer = playerRoom.getCenter();
-		ptPrey = preyRoom.getCenter();
+		ptTarget = predatorRoom.getCenter();
 		ptNorth = new Point3D(0,1,0);
 		ptEast = new Point3D(1,0,0);
 		ptSouth = new Point3D(0,-1,0);
 		ptWest = new Point3D(-1,0,0);
 		
-		returnInfo = new ReturnInfo(returnMessage,playerRoom,preyRoom);
+		returnInfo = new ReturnInfo(returnMessage,playerRoom,predatorRoom);
 	}
 
 	/**
@@ -78,9 +80,8 @@ public class GameController
 		else // not visited
 		{
 			playerRoom.upDateVisited(1);
-			returnMessage += playerRoom.getRoomDescription() + "\n";
+			returnMessage += playerRoom.getRoomName() + "  " + playerRoom.getRoomDescription() + "\n";
 		}
-		
 	}
 
 	public ReturnInfo commandControl(String command)
@@ -142,11 +143,43 @@ public class GameController
 			}
 		}
 			break;
+		case "up":
+		{
+			if(playerRoom.getUpRoom() > 0)
+			{
+				changeRoom(playerRoom.getUpRoom());
+			}
+			else
+			{
+				returnMessage = "There is no up room" + "\n";
+			}
+		}
+			break;
+		case "down":
+		{
+			if(playerRoom.getDownRoom() > 0)
+			{
+				changeRoom(playerRoom.getDownRoom());
+			}
+			else
+			{
+				returnMessage = "There is no down room" + "\n";
+			}
+		}
+			break;
+			
 		case "map":
 		{
 			returnMessage = playerRoom.getRoomDescription() + "\n";
 		}
 			break;
+			
+		case "sound":
+		{
+			targetRoom = playerRoom.getRoom(playerRoom.getRoomID());		
+		}
+			break;
+			
 		default:
 		{
 			returnMessage += "Invalid Command. Type \"Commands\" for a list of valid commands." + "\n";
@@ -158,48 +191,48 @@ public class GameController
 		return returnInfo;
 	}
 
-	public ReturnInfo movePrey()
+	public ReturnInfo movePredator()
 	{
-		ptPrey = preyRoom.getCenter();
+		ptTarget = targetRoom.getCenter();
 		ptPlayer = playerRoom.getCenter();
 
-		int iAngleNorth = (int)Math.round(ptPrey.angle(ptPlayer,ptPrey.add(ptNorth)));
-		int iAngleEast  = (int)Math.round(ptPrey.angle(ptPlayer,ptPrey.add(ptEast)));
-		int iAngleSouth = (int)Math.round(ptPrey.angle(ptPlayer,ptPrey.add(ptSouth)));
-		int iAngleWest  = (int)Math.round(ptPrey.angle(ptPlayer,ptPrey.add(ptWest)));
+		int iAngleNorth = (int)Math.round(ptTarget.angle(ptPlayer,ptTarget.add(ptNorth)));
+		int iAngleEast  = (int)Math.round(ptTarget.angle(ptPlayer,ptTarget.add(ptEast)));
+		int iAngleSouth = (int)Math.round(ptTarget.angle(ptPlayer,ptTarget.add(ptSouth)));
+		int iAngleWest  = (int)Math.round(ptTarget.angle(ptPlayer,ptTarget.add(ptWest)));
 		
 		int minAngle = 400;
 		int nextRoomID = 0;
 		
-		if (preyRoom.getHasNorthRoom() && (iAngleNorth < minAngle))
+		if (predatorRoom.getHasNorthRoom() && (iAngleNorth < minAngle))
 		{
 			minAngle = iAngleNorth;
-			nextRoomID = preyRoom.getNorthRoom();
+			nextRoomID = predatorRoom.getNorthRoom();
 		}
 		
-		if (preyRoom.getHasEastRoom() && (iAngleEast < minAngle))
+		if (predatorRoom.getHasEastRoom() && (iAngleEast < minAngle))
 		{
 			minAngle = iAngleEast;
-			nextRoomID = preyRoom.getEastRoom();
+			nextRoomID = predatorRoom.getEastRoom();
 		}
 		
-		if (preyRoom.getHasSouthRoom() && (iAngleSouth < minAngle))
+		if (predatorRoom.getHasSouthRoom() && (iAngleSouth < minAngle))
 		{
 			minAngle = iAngleSouth;
-			nextRoomID = preyRoom.getSouthRoom();
+			nextRoomID = predatorRoom.getSouthRoom();
 		}
 		
-		if (preyRoom.getHasWestRoom() && (iAngleWest < minAngle))
+		if (predatorRoom.getHasWestRoom() && (iAngleWest < minAngle))
 		{
 			minAngle = iAngleWest;
-			nextRoomID = preyRoom.getWestRoom();
+			nextRoomID = predatorRoom.getWestRoom();
 		}
 				
-		preyRoom = preyRoom.getRoom(nextRoomID);
-		prey.setRoom(preyRoom);
-		returnInfo.setPreyRoom(preyRoom);
+		predatorRoom = predatorRoom.getRoom(nextRoomID);
+		predator.setRoom(predatorRoom);
+		returnInfo.setPreyRoom(predatorRoom);
 		
-		returnMessage = player.toString() + "   " + prey.toString() + "\n";
+		returnMessage = player.toString() + "   " + predator.toString() + "\n";
 		returnInfo.setMessage(returnMessage);
 
 		return returnInfo;
@@ -207,15 +240,17 @@ public class GameController
 	
 	public ReturnInfo reset()
 	{
-		playerRoom = new Room().getRoom(1);
+		playerRoom = new Room().getRoom(1001);
 		player.setRoom(playerRoom);
 
-		preyRoom = new Room().getRoom(25);
-		prey.setRoom(preyRoom);
+		predatorRoom = new Room().getRoom(1035);
+		predator.setRoom(predatorRoom);
+		
+		targetRoom = new Room().getRoom(1001);
 		
 		returnInfo.setPlayerRoom(playerRoom);
-		returnInfo.setPreyRoom(preyRoom);
-		returnMessage = player.toString() + "   " + prey.toString() + "\n";
+		returnInfo.setPreyRoom(predatorRoom);
+		returnMessage = player.toString() + "   " + predator.toString() + "\n";
 		returnInfo.setMessage(returnMessage);
 		
 		Room r = new Room();

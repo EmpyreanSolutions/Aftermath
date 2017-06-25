@@ -66,6 +66,9 @@ public class GameUI extends Application
 	private Button btEast;
 	private Button btSouth;
 	private Button btWest;
+	private Button btUp;
+	private Button btDown;
+	private Button btSound;
 	private Button btPlay;
 	private Button btPause;
 	private Button btReset;
@@ -159,40 +162,61 @@ public class GameUI extends Application
 		navPane.add(btWest, 0, 1);
 		btWest.setVisible(false);
 
+		btUp = new Button("Up");
+		btUp.setStyle("-fx-border-color: turquoise; -fx-border-width: 1px; -fx-background-color: black;");
+		btUp.setFont(Font.font("OCR A Std", FontWeight.NORMAL, FontPosture.REGULAR, 10));
+		btUp.setTextFill(Color.MEDIUMTURQUOISE);
+		navPane.add(btUp, 0, 3);
+		btUp.setVisible(false);
+
+		btDown = new Button("Down");
+		btDown.setStyle("-fx-border-color: turquoise; -fx-border-width: 1px; -fx-background-color: black;");
+		btDown.setFont(Font.font("OCR A Std", FontWeight.NORMAL, FontPosture.REGULAR, 10));
+		btDown.setTextFill(Color.MEDIUMTURQUOISE);
+		navPane.add(btDown, 2, 3);
+		btDown.setVisible(false);
+		
+		btSound = new Button("Sound");
+		btSound.setStyle("-fx-border-color: turquoise; -fx-border-width: 1px; -fx-background-color: black;");
+		btSound.setFont(Font.font("OCR A Std", FontWeight.NORMAL, FontPosture.REGULAR, 10));
+		btSound.setTextFill(Color.MEDIUMTURQUOISE);
+		navPane.add(btSound, 1, 3);
+		btSound.setVisible(true);
+
 		btExit = new Button("Exit");
 		btExit.setStyle("-fx-border-color: turquoise; -fx-border-width: 1px; -fx-background-color: black;");
 		btExit.setFont(Font.font("OCR A Std", FontWeight.NORMAL, FontPosture.REGULAR, 10));
 		btExit.setTextFill(Color.MEDIUMTURQUOISE);
 		GridPane.setHalignment(btExit, HPos.CENTER);
-		navPane.add(btExit, 1, 8);
+		navPane.add(btExit, 1, 9);
 
 		btMap = new Button("Map");
 		btMap.setStyle("-fx-border-color: turquoise; -fx-border-width: 1px; -fx-background-color: black;");
 		btMap.setFont(Font.font("OCR A Std", FontWeight.NORMAL, FontPosture.REGULAR, 10));
 		btMap.setTextFill(Color.MEDIUMTURQUOISE);
 		GridPane.setHalignment(btMap, HPos.CENTER);
-		navPane.add(btMap, 0, 6);
+		navPane.add(btMap, 0, 7);
 		
 		btPlay = new Button("Play");
 		btPlay.setStyle("-fx-border-color: turquoise; -fx-border-width: 1px; -fx-background-color: black;");
 		btPlay.setFont(Font.font("OCR A Std", FontWeight.NORMAL, FontPosture.REGULAR, 10));
 		btPlay.setTextFill(Color.MEDIUMTURQUOISE);
 		GridPane.setHalignment(btPlay, HPos.CENTER);
-		navPane.add(btPlay, 0, 4);
+		navPane.add(btPlay, 0, 5);
 		
 		btPause = new Button("Pause");
 		btPause.setStyle("-fx-border-color: turquoise; -fx-border-width: 1px; -fx-background-color: black;");
 		btPause.setFont(Font.font("OCR A Std", FontWeight.NORMAL, FontPosture.REGULAR, 10));
 		btPause.setTextFill(Color.MEDIUMTURQUOISE);
 		GridPane.setHalignment(btPause, HPos.CENTER);
-		navPane.add(btPause, 1, 4);	
+		navPane.add(btPause, 1, 5);	
 		
 		btReset = new Button("Reset");
 		btReset.setStyle("-fx-border-color: turquoise; -fx-border-width: 1px; -fx-background-color: black;");
 		btReset.setFont(Font.font("OCR A Std", FontWeight.NORMAL, FontPosture.REGULAR, 10));
 		btReset.setTextFill(Color.MEDIUMTURQUOISE);
 		GridPane.setHalignment(btReset, HPos.CENTER);
-		navPane.add(btReset, 2, 4);
+		navPane.add(btReset, 2, 5);
 		
 		bPane.setRight(navPane);
 	}
@@ -262,6 +286,22 @@ public class GameUI extends Application
 		{
 			btWest.setVisible(false);
 		}
+		if(returnInfo.getPlayerRoom().getHasUpRoom())
+		{
+			btUp.setVisible(true);
+		}
+		else
+		{
+			btUp.setVisible(false);
+		}
+		if(returnInfo.getPlayerRoom().getHasDownRoom())
+		{
+			btDown.setVisible(true);
+		}
+		else
+		{
+			btDown.setVisible(false);
+		}
 	}
 
 	private void navigate(String direction) // throws SQLException
@@ -296,6 +336,21 @@ public class GameUI extends Application
 		btWest.setOnAction(e ->
 		{
 			navigate("west");
+		});
+		
+		btUp.setOnAction(e ->
+		{
+			navigate("up");
+		});
+		
+		btDown.setOnAction(e ->
+		{
+			navigate("down");
+		});
+		
+		btSound.setOnAction(e ->
+		{
+			navigate("sound");
 		});
 
 		btExit.setOnAction(e ->
@@ -350,24 +405,6 @@ public class GameUI extends Application
 			taCenter.setOnKeyPressed(eventHandler2);
 			taCenter.requestFocus();
 			setVisibleButtons();
-//			try
-//			{
-//				mp = new MediaPlayer(new Media(new File("Monster-Stake-Out.mp3").toURI().toString()));
-////				mp = new MediaPlayer(new Media("file:/C:/Users/kbsho/Desktop/Projects/Aftermath/Monster-Stake-Out.mp3"));
-//		
-//			}
-//			catch (IllegalArgumentException iae)
-//			{
-//				System.out.println("Still incorrect");
-//				System.exit(0);
-//			}
-//			catch (MediaException me)
-//			{
-//				System.out.println("Still incorrect2");
-//				System.exit(0);				
-//			}
-//			mp.play();
-
 		});
 		
 		btPause.setOnAction(e ->
@@ -377,6 +414,8 @@ public class GameUI extends Application
 			btEast.setVisible(false);
 			btSouth.setVisible(false);
 			btWest.setVisible(false);
+			btUp.setVisible(false);
+			btDown.setVisible(false);
 		});
 		
 		btReset.setOnAction(e ->
@@ -396,7 +435,7 @@ public class GameUI extends Application
 		// Event handler for animation
 		eventHandler = e -> 
 		{	
-			returnInfo = gc.movePrey();
+			returnInfo = gc.movePredator();
 			taCenter.appendText(returnInfo.getMessage()); 
 			if (returnInfo.getPlayerRoom().getRoomID() == returnInfo.getPreyRoom().getRoomID())
 			{
@@ -406,6 +445,8 @@ public class GameUI extends Application
 				btEast.setVisible(false);
 				btSouth.setVisible(false);
 				btWest.setVisible(false);
+				btUp.setVisible(false);
+				btDown.setVisible(false);
 			}
 		};
 	
