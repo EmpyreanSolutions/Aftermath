@@ -8,48 +8,76 @@ public class Room
 {
 	private int roomID;
 	private String roomName;
-	private String imageName;
-	private int visited;
+	
+
 	private int northRoom;
 	private int eastRoom;
 	private int southRoom;
 	private int westRoom;
+	private int upRoom;
+	private int downRoom;
+	
+	private int xCoordinate;
+	private int yCoordinate;
+	private int zCoordinate;
+	
+	private int visited;
+	private String imageName;
 	private String roomDescription;
 	
 	private boolean hasNorthRoom;
 	private boolean hasEastRoom;
 	private boolean hasSouthRoom;
 	private boolean hasWestRoom;
+	private boolean hasUpRoom;
+	private boolean hasDownRoom;
 
 	public Room()
 	{
 		roomID = 0;
 		roomName = "";
-		imageName = "";
-		visited = 0;
+
 		northRoom = 0;
 		eastRoom = 0;
 		southRoom = 0;
 		westRoom = 0;
+		upRoom = 0;
+		downRoom = 0;
+		
+		xCoordinate = 0;
+		yCoordinate = 0;
+		zCoordinate = 0;
+		
+		visited = 0;		
+		imageName = "";		
 		roomDescription = "";
+		
 		hasNorthRoom = false;
 		hasEastRoom = false;
 		hasSouthRoom = false;
 		hasWestRoom = false;
-
+		hasUpRoom = false;
+		hasDownRoom = false;
 	}
 	
-	public Room(int roomID, String roomName, String imageName, int visited, int northRoom, int eastRoom, int southRoom,
-			int westRoom, String roomDescription)
+	public Room(int roomID, String roomName, 
+			    int northRoom, int eastRoom, int southRoom, int westRoom, int upRoom, int downRoom, 
+			    int xCoordiante, int yCoordinate, int zCoordinate, int visited, 
+			    String imageName, String roomDescription)
 	{
 		this.roomID = roomID;
 		this.roomName = roomName;
-		this.imageName = imageName;
-		this.visited = visited;
 		this.northRoom = northRoom;
 		this.eastRoom = eastRoom;
 		this.southRoom = southRoom;
 		this.westRoom = westRoom;
+		this.upRoom = upRoom;
+		this.downRoom = downRoom;
+		this.xCoordinate = xCoordiante;
+		this.yCoordinate = yCoordinate;
+		this.zCoordinate = zCoordinate;
+		this.visited = visited;
+		this.imageName = imageName;
 		this.roomDescription = roomDescription;
 		if (northRoom > 0)
 		{
@@ -85,6 +113,23 @@ public class Room
 		else
 		{
 			hasWestRoom = false;
+		}
+		
+		if (upRoom > 0)
+		{
+			hasUpRoom = true;
+		}
+		else
+		{
+			hasUpRoom = false;
+		}
+		if (downRoom > 0)
+		{
+			hasDownRoom = true;
+		}
+		else
+		{
+			hasDownRoom = false;
 		}
 	}
 
@@ -185,6 +230,56 @@ public class Room
 	{
 		this.westRoom = westRoom;
 	}
+	
+	public int getUpRoom()
+	{
+		return upRoom;
+	}
+
+	public void setUpRoom(int upRoom)
+	{
+		this.upRoom = upRoom;
+	}
+
+	public int getDownRoom()
+	{
+		return downRoom;
+	}
+
+	public void setDownRoom(int downRoom)
+	{
+		this.downRoom = downRoom;
+	}
+
+	public int getxCoordinate()
+	{
+		return xCoordinate;
+	}
+
+	public void setxCoordinate(int xCoordinate)
+	{
+		this.xCoordinate = xCoordinate;
+	}
+
+	public int getyCoordinate()
+	{
+		return yCoordinate;
+	}
+
+	public void setyCoordinate(int yCoordinate)
+	{
+		this.yCoordinate = yCoordinate;
+	}
+
+	public int getzCoordinate()
+	{
+		return zCoordinate;
+	}
+
+	public void setzCoordinate(int zCoordinate)
+	{
+		this.zCoordinate = zCoordinate;
+	}
 
 	public boolean getHasNorthRoom()
 	{
@@ -225,6 +320,28 @@ public class Room
 	{
 		this.hasWestRoom = hasWestRoom;
 	}
+	
+	
+	public boolean getHasUpRoom()
+	{
+		return hasUpRoom;
+	}
+
+	public void setHasUpRoom(boolean hasUpRoom)
+	{
+		this.hasUpRoom = hasUpRoom;
+	}
+
+	public boolean getHasDownRoom()
+	{
+		return hasDownRoom;
+	}
+
+	public void setHasDownRoom(boolean hasDownRoom)
+	{
+		this.hasDownRoom = hasDownRoom;
+	}
+
 	public void upDateVisited(int num)
 	{
 		RoomDB rdb = new RoomDB();
@@ -232,57 +349,10 @@ public class Room
 		this.visited = num;  // IS THIS NECESSARY?
 	}
 
-	@Override
-	public String toString()
-	{
-		return "Room [roomID=" + roomID + ", roomName=" + roomName + ", imageName=" + imageName + ", northRoom="
-				+ northRoom + ", eastRoom=" + eastRoom + ", southRoom=" + southRoom + ", westRoom=" + westRoom
-				+ ", roomDescription=" + roomDescription + ", hasNorthRoom=" + hasNorthRoom + ", hasEastRoom="
-				+ hasEastRoom + ", hasSouthRoom=" + hasSouthRoom + ", hasWestRoom=" + hasWestRoom + "]";
-	}
 	
 	public Point3D getCenter()
 	{
-		String column = roomName.substring(0,1);
-		String row = roomName.substring(1,2);
-		double x = 5.0;
-		double y = 45.0;
-		double z = 0.0;
-		if (column.equals("B"))
-		{
-			x += 10.0;
-		}
-		else if (column.equals("C"))
-		{
-			x += 20.0;
-		}
-		else if (column.equals("D"))
-		{
-			x += 30.0;
-		}
-		else if (column.equals("E"))
-		{
-			x += 40.0;
-		}
-		
-		if (row.equals("2"))
-		{
-			y = 35.0; 
-		}
-		else if (row.equals("3"))
-		{
-			y = 25.0;
-		}
-		else if (row.equals("4"))
-		{
-			y = 15.0;
-		}
-		else if (row.equals("5"))
-		{
-			y = 5.0;
-		}
-		
-		Point3D pt = new Point3D(x,y,z);
+		Point3D pt = new Point3D((double)xCoordinate,(double)yCoordinate,(double)zCoordinate);
 		return pt;
 	}
 	

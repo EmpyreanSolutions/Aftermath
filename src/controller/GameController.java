@@ -33,8 +33,8 @@ public class GameController
 
 	public GameController()
 	{
-		playerRoom = new Room().getRoom(1);
-		preyRoom = new Room().getRoom(25);
+		playerRoom = new Room().getRoom(1001);
+		preyRoom = new Room().getRoom(1035);
 		player = new Player("Kenneth",playerRoom);
 		prey = new Lifeform("Shiva",preyRoom);
 		returnMessage = "";
