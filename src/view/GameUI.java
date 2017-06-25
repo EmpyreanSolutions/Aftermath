@@ -19,10 +19,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.effect.Reflection;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
@@ -81,17 +85,20 @@ public class GameUI extends Application
 		// Instantiate a BorderPane as the main pane
 		bPane = new BorderPane();
 		bPane.setPadding(new Insets(20, 20, 20, 20));
-		bPane.setPrefSize(800.0, 600.0);
-		bPane.setStyle("-fx-border-color: turquoise; -fx-border-width: 1px; -fx-background-color: black;");
+		bPane.setStyle("-fx-background-color: black;");
 
 		// Place the title in the top center of the BorderPane
-		Label label = new Label("Aftermath");
+		Label label = new Label("A f t e r m a t h");
 		label.setFont(Font.font("OCR A Std", FontWeight.NORMAL, FontPosture.REGULAR, 30));
 		label.setTextFill(Color.MEDIUMTURQUOISE);
+		Reflection labelReflection = new Reflection();
+		labelReflection.setFraction(0.4f);
+		label.setEffect(labelReflection);
 		HBox hbox = new HBox();
 		hbox.getChildren().add(label);
-		hbox.setPrefHeight(50);
+		hbox.setPrefHeight(70);
 		hbox.setAlignment(Pos.TOP_CENTER);
+		hbox.setStyle("-fx-border-color: turquoise;");
 		BorderPane.setAlignment(label, Pos.CENTER);
 		bPane.setTop(hbox);
 	}
@@ -437,14 +444,15 @@ public class GameUI extends Application
 		playMusic();
 		
 		//Fit to Screen. Not sure if I want to keep this
+		/*
 		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 		primaryStage.setX(primaryScreenBounds.getMinX());
 		primaryStage.setY(primaryScreenBounds.getMinY());
 		primaryStage.setWidth(primaryScreenBounds.getWidth());
 		primaryStage.setHeight(primaryScreenBounds.getHeight());
+		*/
 		// Create a scene and place it in the stage
-		Scene scene = new Scene(bPane,400,400);
-		scene.cursorProperty().set(Cursor.CROSSHAIR);
+		Scene scene = new Scene(bPane,1280,720);
 		primaryStage.setTitle("Aftermath"); // Set the stage title
 		primaryStage.setScene(scene); // Place the scene in the stage
 		primaryStage.setResizable(false);
