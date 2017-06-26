@@ -3,6 +3,7 @@ package view;
 import java.io.File;
 
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -57,35 +58,36 @@ public class MainMenu extends Stage
 		
 		title = new Label();
 		title.setText("A f t e r m a t h");
-		title.setFont(Font.font("OCR A Std", FontWeight.BOLD, FontPosture.REGULAR, 30));
+		title.setFont(Font.font("OCR A Std", FontWeight.EXTRA_BOLD, FontPosture.REGULAR, 80));
 		title.setTextFill(Color.MEDIUMTURQUOISE);
 		Reflection labelReflection = new Reflection();
-		labelReflection.setFraction(0.4f);
+		labelReflection.setFraction(0.5f);
 		title.setEffect(labelReflection);
 
 		btNew = new Button("New Game");
-		btNew.setFont(Font.font("OCR A Std", FontWeight.BOLD, FontPosture.REGULAR, 10));
+		btNew.setFont(Font.font("OCR A Std", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		btNew.setTextFill(Color.MEDIUMTURQUOISE);
-		btNew.setStyle("-fx-background-color: transparent; -fx-border-width: 1px; -fx-border-color: turquoise;");
+		btNew.setPadding(new Insets(100,0,0,0));
+		btNew.setStyle("-fx-background-color: transparent;");
 
 		btContinue = new Button("Continue Game");
-		btContinue.setFont(Font.font("OCR A Std", FontWeight.BOLD, FontPosture.REGULAR, 10));
+		btContinue.setFont(Font.font("OCR A Std", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		btContinue.setTextFill(Color.MEDIUMTURQUOISE);
-		btContinue.setStyle("-fx-background-color: transparent; -fx-border-width: 1px; -fx-border-color: turquoise;");
+		btContinue.setStyle("-fx-background-color: transparent;");
 
 		btOptions = new Button("Options");
-		btOptions.setFont(Font.font("OCR A Std", FontWeight.BOLD, FontPosture.REGULAR, 10));
+		btOptions.setFont(Font.font("OCR A Std", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		btOptions.setTextFill(Color.MEDIUMTURQUOISE);
-		btOptions.setStyle("-fx-background-color: transparent; -fx-border-width: 1px; -fx-border-color: turquoise;");
+		btOptions.setStyle("-fx-background-color: transparent;");
 
 		btExit = new Button("Exit");
-		btExit.setFont(Font.font("OCR A Std", FontWeight.BOLD, FontPosture.REGULAR, 10));
+		btExit.setFont(Font.font("OCR A Std", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		btExit.setTextFill(Color.MEDIUMTURQUOISE);
-		btExit.setStyle("-fx-background-color: transparent; -fx-border-width: 1px; -fx-border-color: turquoise;");;
+		btExit.setStyle("-fx-background-color: transparent;");;
 
 		VBox menuVBox = new VBox();
 		menuVBox.setAlignment(Pos.CENTER);
-		menuVBox.setSpacing(25);
+		menuVBox.setSpacing(30);
 		menuVBox.getChildren().addAll( title, btNew, btContinue, btOptions, btExit);
 
 		mainSP.getChildren().add(menuVBox);
