@@ -36,20 +36,14 @@ public class MainMenu extends Stage
 	private Button btOptions;
 	private Button btExit;
 	private MediaPlayer mp;
-	private ImageView mainImage;
 
 	public MainMenu()
 	{
 		buildMainMenu();
 		buildButtonActions();
 		playMusic();
-		
-		Group root = new Group();
-		mainImage = new ImageView();
-		mainImage.setImage(new Image(("MainMenu01.jpg")));
-		mainImage.toBack();
-		root.getChildren().addAll(mainImage, mainSP);
-		Scene menuScene = new Scene(root, 1280, 720);
+
+		Scene menuScene = new Scene(mainSP, 1280, 720);
 		this.setScene(menuScene);
 		this.setResizable(false);
 		this.show();
@@ -57,7 +51,9 @@ public class MainMenu extends Stage
 
 	private void buildMainMenu()
 	{
-		mainSP = new StackPane();		
+		mainSP = new StackPane();
+		mainSP.setBackground(new Background(new BackgroundImage(new Image("/resources/MainMenu01.jpg"),BackgroundRepeat.REPEAT, 
+				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT)));
 		
 		title = new Label();
 		title.setText("A f t e r m a t h");
