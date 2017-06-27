@@ -235,7 +235,7 @@ public class GameController
 				
 		predatorRoom = predatorRoom.getRoom(nextRoomID);
 		predator.setRoom(predatorRoom);
-		returnInfo.setPreyRoom(predatorRoom);
+		returnInfo.setPredatorRoom(predatorRoom);
 		
 		returnMessage = player.toString() + "   " + predator.toString() + "\n";
 		returnInfo.setMessage(returnMessage);
