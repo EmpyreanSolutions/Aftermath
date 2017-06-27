@@ -75,16 +75,18 @@ public class GameController
 
 		if (playerRoom.getVisited() == 1)  // visited
 		{
-			returnMessage += playerRoom.getRoomName() + "\n";			
+			returnMessage += playerRoom.getRoomName() + "\n";	
+//			System.out.println("returnMessage visited: " + returnMessage);
 		}
 		else // not visited
 		{
 			playerRoom.upDateVisited(1);
 			returnMessage += playerRoom.getRoomName() + "  " + playerRoom.getRoomDescription() + "\n";
+//			System.out.println("returnMessage not visited: " + returnMessage);			
 		}
 	}
 
-	public ReturnInfo commandControl(String command)
+	public ReturnInfo navigateControl(String command)
 	{
 		returnMessage = "";
 		
@@ -168,18 +170,6 @@ public class GameController
 		}
 			break;
 			
-		case "map":
-		{
-			returnMessage = playerRoom.getRoomDescription() + "\n";
-		}
-			break;
-			
-		case "sound":
-		{
-			targetRoom = playerRoom.getRoom(playerRoom.getRoomID());		
-		}
-			break;
-			
 		default:
 		{
 			returnMessage += "Invalid Command. Type \"Commands\" for a list of valid commands." + "\n";
@@ -189,6 +179,21 @@ public class GameController
 		}
 		returnInfo.setMessage(returnMessage);
 		return returnInfo;
+	}
+	
+	public ReturnInfo mapControl()
+	{
+		returnMessage = playerRoom.getRoomName() + "\n";
+		returnInfo.setMessage(returnMessage);
+		return returnInfo;
+	}
+	
+	public ReturnInfo targetControl()
+	{;
+		targetRoom = targetRoom.getRoom(playerRoom.getRoomID());
+		returnMessage = targetRoom.getRoomName() + "\n";
+		returnInfo.setMessage(returnMessage);
+		return returnInfo;		
 	}
 
 	public ReturnInfo movePredator()
@@ -238,30 +243,5 @@ public class GameController
 		return returnInfo;
 	}
 	
-	public ReturnInfo reset()
-	{
-		playerRoom = new Room().getRoom(1001);
-		player.setRoom(playerRoom);
-
-		predatorRoom = new Room().getRoom(1035);
-		predator.setRoom(predatorRoom);
-		
-		targetRoom = new Room().getRoom(1001);
-		
-		returnInfo.setPlayerRoom(playerRoom);
-		returnInfo.setPreyRoom(predatorRoom);
-		returnMessage = player.toString() + "   " + predator.toString() + "\n";
-		returnInfo.setMessage(returnMessage);
-		
-		Room r = new Room();
-		for (int index = 1; index <= 25; index++)
-		{
-			r = r.getRoom(index);
-			r.upDateVisited(0);
-		}
-		
-		return returnInfo;
-	}
-
 
 }

@@ -23,10 +23,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaException;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -303,7 +299,7 @@ public class InGameGUI  extends Stage
 
 	private void navigate(String direction) // throws SQLException
 	{
-		returnInfo = gc.commandControl(direction);
+		returnInfo = gc.navigateControl(direction);
 		if(!(returnInfo.getMessage().equals("")))
 		{
 			taCenter.appendText(returnInfo.getMessage());
@@ -348,7 +344,8 @@ public class InGameGUI  extends Stage
 
 		btSound.setOnAction(e ->
 		{
-			navigate("sound");
+			returnInfo = gc.targetControl();
+			taCenter.appendText("Sound: " + returnInfo.getPlayerRoom().getRoomID() + "  " + returnInfo.getMessage());
 		});
 
 		btExit.setOnAction(e ->
@@ -358,7 +355,7 @@ public class InGameGUI  extends Stage
 
 		btMap.setOnAction(e ->
 		{
-			returnInfo = gc.commandControl("map");
+			returnInfo = gc.mapControl();
 			taCenter.appendText(returnInfo.getMessage());
 		});
 
@@ -398,7 +395,7 @@ public class InGameGUI  extends Stage
 		btPlay.setOnAction(e ->
 		{
 			animation.play();
-			returnInfo = gc.commandControl("map");
+			returnInfo = gc.mapControl();
 			taCenter.appendText(returnInfo.getMessage());
 			taCenter.setOnKeyPressed(eventHandler2);
 			taCenter.requestFocus();
