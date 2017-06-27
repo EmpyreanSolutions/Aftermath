@@ -42,12 +42,12 @@ public class ReturnInfo
 		this.playerRoom = playerRoom;
 	}
 
-	public Room getPreyRoom()
+	public Room getPredatorRoom()
 	{
 		return predatorRoom;
 	}
 
-	public void setPreyRoom(Room preyRoom)
+	public void setPredatorRoom(Room preyRoom)
 	{
 		this.predatorRoom = preyRoom;
 	}

@@ -421,7 +421,7 @@ public class InGameGUI  extends Stage
 		{
 			returnInfo = gc.movePredator();
 			taCenter.appendText(returnInfo.getMessage());
-			if(returnInfo.getPlayerRoom().getRoomID() == returnInfo.getPreyRoom().getRoomID())
+			if(returnInfo.getPlayerRoom().getRoomID() == returnInfo.getPredatorRoom().getRoomID())
 			{
 				taCenter.appendText("YOU GOT CAUGHT!!!");
 				animation.stop();
