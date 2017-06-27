@@ -4,20 +4,20 @@ public class ReturnInfo
 {
 	private String message;
 	private Room playerRoom;
-	private Room preyRoom;
+	private Room predatorRoom;
 	
 	public ReturnInfo()
 	{
 		message = "";
 		playerRoom = new Room();
-		preyRoom = new Room();
+		predatorRoom = new Room();
 	}
 	
-	public ReturnInfo(String message, Room playerRoom, Room preyRoom)
+	public ReturnInfo(String message, Room playerRoom, Room predatorRoom)
 	{
 		this.message = message;
 		this.playerRoom = playerRoom;
-		this.preyRoom = preyRoom;
+		this.predatorRoom = predatorRoom;
 	}
 
 
@@ -44,12 +44,12 @@ public class ReturnInfo
 
 	public Room getPreyRoom()
 	{
-		return preyRoom;
+		return predatorRoom;
 	}
 
 	public void setPreyRoom(Room preyRoom)
 	{
-		this.preyRoom = preyRoom;
+		this.predatorRoom = preyRoom;
 	}
 	
 	
