@@ -28,7 +28,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-public class MainMenu extends Stage
+public class MainMenuGUI extends Stage
 {
 	private StackPane mainSP;
 	private Label title;
@@ -38,7 +38,7 @@ public class MainMenu extends Stage
 	private Button btExit;
 	private MediaPlayer mp;
 
-	public MainMenu()
+	public MainMenuGUI()
 	{
 		buildMainMenu();
 		buildButtonActions();
@@ -98,7 +98,9 @@ public class MainMenu extends Stage
 	{
 		btNew.setOnAction(e ->
 		{
-			
+			new InGameGUI();
+			mp.stop();
+			this.close();
 		});
 		
 		btContinue.setOnAction(e ->

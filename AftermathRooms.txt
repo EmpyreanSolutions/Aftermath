@@ -160,7 +160,7 @@
 4029	Port Access Room	0	4030	4032	0	0	0	7	22	0	0	TBD	TBD
 4030	Engine Control Room	0	4031	0	4029	0	0	14	22	0	0	TBD	TBD
 4031	Starboard Access Room	0	0	4033	4030	0	0	21	22	0	0	TBD	TBD
-4032	Port Reactor Room	4029	4034	0	4035	0	0	6	16	0	0	TBD	TBD
+4032	Port Reactor Room	4029	4035	0	4034	0	0	6	16	0	0	TBD	TBD
 4033	Starboard Reactor Room	4031	4036	0	4037	0	0	22	16	0	0	TBD	TBD
 4034	Engine System Room 1	0	4032	0	0	0	0	2	6	0	0	TBD	TBD
 4035	Engine System Room 2	0	0	0	4032	0	0	10	6	0	0	TBD	TBD

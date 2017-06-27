@@ -81,7 +81,7 @@ public class GameDBCreate
 				 
 				 
 				sql = "INSERT INTO Rooms(RoomID, roomName, northRoom, eastRoom, southRoom, westRoom, upRoom, downRoom, xCoordinate, yCoordinate, zCoordinate, visited, imageName, roomDescription) "
-						+ "VALUES(" + split[0] + ", \"" + split[1] + "\",  " 
+						+ "VALUES(" + split[0] + ", \"" + split[1] + "\",  " 	// roomID  roomName
 						+ split[2] + ", " + split[3] + ", " + split[4] + ", " + split[5] + ", " + split[6] + ", " + split[7] + ", "
 						+ split[8] + ", " + split[9] + ", " + split[10]	+ ", " + split[11]
 						+ ",\"" + split[12] + "\", \"" + split[13] + "\")";
