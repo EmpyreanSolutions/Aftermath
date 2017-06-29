@@ -26,6 +26,7 @@ public class GameController
 	private ReturnInfo returnInfo;
 	
 	private Point3D ptPlayer;
+	private Point3D ptPredator;
 	private Point3D ptTarget;
 	private Point3D ptNorth;
 	private Point3D ptEast;
@@ -41,13 +42,15 @@ public class GameController
 		predator = new Lifeform("Shiva",predatorRoom);
 		returnMessage = "";
 		ptPlayer = playerRoom.getCenter();
-		ptTarget = predatorRoom.getCenter();
+		ptPredator = predatorRoom.getCenter();
+		ptTarget = playerRoom.getCenter();
 		ptNorth = new Point3D(0,1,0);
 		ptEast = new Point3D(1,0,0);
 		ptSouth = new Point3D(0,-1,0);
 		ptWest = new Point3D(-1,0,0);
 		
 		returnInfo = new ReturnInfo(returnMessage,playerRoom,predatorRoom);
+	
 	}
 
 	/**
@@ -183,7 +186,8 @@ public class GameController
 	
 	public ReturnInfo mapControl()
 	{
-		returnMessage = playerRoom.getRoomName() + "\n";
+		returnMessage = "Player: " + player.getRoom().getRoomName() + "    Shiva: " + predator.getRoom().getRoomName() 
+				+ "   Target: " + targetRoom.getRoomName()+ "\n";
 		returnInfo.setMessage(returnMessage);
 		return returnInfo;
 	}
@@ -200,11 +204,15 @@ public class GameController
 	{
 		ptTarget = targetRoom.getCenter();
 		ptPlayer = playerRoom.getCenter();
+		ptPredator = predatorRoom.getCenter();
+//		System.out.println("ptPlayer:   " + ptPlayer);
+//		System.out.println("ptPredator: " + ptPredator);
+//		System.out.println("ptTarget:   " + ptTarget);
 
-		int iAngleNorth = (int)Math.round(ptTarget.angle(ptPlayer,ptTarget.add(ptNorth)));
-		int iAngleEast  = (int)Math.round(ptTarget.angle(ptPlayer,ptTarget.add(ptEast)));
-		int iAngleSouth = (int)Math.round(ptTarget.angle(ptPlayer,ptTarget.add(ptSouth)));
-		int iAngleWest  = (int)Math.round(ptTarget.angle(ptPlayer,ptTarget.add(ptWest)));
+		int iAngleNorth = (int)Math.round(ptPredator.angle(ptTarget,ptPredator.add(ptNorth)));
+		int iAngleEast  = (int)Math.round(ptPredator.angle(ptTarget,ptPredator.add(ptEast)));
+		int iAngleSouth = (int)Math.round(ptPredator.angle(ptTarget,ptPredator.add(ptSouth)));
+		int iAngleWest  = (int)Math.round(ptPredator.angle(ptTarget,ptPredator.add(ptWest)));
 		
 		int minAngle = 400;
 		int nextRoomID = 0;
@@ -213,31 +221,39 @@ public class GameController
 		{
 			minAngle = iAngleNorth;
 			nextRoomID = predatorRoom.getNorthRoom();
+//			System.out.println("Going North " + nextRoomID);
 		}
 		
 		if (predatorRoom.getHasEastRoom() && (iAngleEast < minAngle))
 		{
 			minAngle = iAngleEast;
 			nextRoomID = predatorRoom.getEastRoom();
+//			System.out.println("Going East");
 		}
 		
 		if (predatorRoom.getHasSouthRoom() && (iAngleSouth < minAngle))
 		{
 			minAngle = iAngleSouth;
 			nextRoomID = predatorRoom.getSouthRoom();
+//			System.out.println("Going South");
 		}
 		
 		if (predatorRoom.getHasWestRoom() && (iAngleWest < minAngle))
 		{
 			minAngle = iAngleWest;
 			nextRoomID = predatorRoom.getWestRoom();
+			System.out.println("Going West");
 		}
 				
 		predatorRoom = predatorRoom.getRoom(nextRoomID);
 		predator.setRoom(predatorRoom);
 		returnInfo.setPredatorRoom(predatorRoom);
 		
-		returnMessage = player.toString() + "   " + predator.toString() + "\n";
+		returnMessage = "Player: " + player.getRoom().getRoomName() + "    Shiva: " + predator.getRoom().getRoomName() 
+				+ "   Target: " + targetRoom.getRoomName();
+		returnMessage += "  iAngleNorth: " + iAngleNorth + "  iAngleEast: " + iAngleEast;
+		returnMessage += "  iAngleSouth: " + iAngleSouth + "  iAngleWest: " + iAngleWest 
+				       + "  minAngle: " + minAngle + "   nextRoomID: " + nextRoomID + "\n";
 		returnInfo.setMessage(returnMessage);
 
 		return returnInfo;
