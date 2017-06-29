@@ -1,5 +1,5 @@
 import java.io.File;
-import view.GameUI;;
+import view.GameFXStart;;
 
 /** Class : GameStart.java
  * @author: Kenneth Sales
@@ -21,7 +21,7 @@ public class GameStart
 			System.exit(0);
 		}
 
-		GameUI.launch(GameUI.class);
+		GameFXStart.launch(GameFXStart.class);
 
 	}
 }

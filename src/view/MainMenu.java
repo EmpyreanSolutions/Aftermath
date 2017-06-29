@@ -27,35 +27,36 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-public class MainMenuGUI extends Stage
+public class MainMenu extends Stage
 {
+	private Scene menuScene;
 	private StackPane mainSP;
 	private Label title;
 	private Button btNew;
 	private Button btContinue;
 	private Button btOptions;
+	private Button btOptionsBack;
+	private Button btCredits;
 	private Button btExit;
 	private MediaPlayer mp;
 
-	public MainMenuGUI()
+	public MainMenu()
 	{
+		initButtons();
 		buildMainMenu();
 		buildButtonActions();
 		playMusic();
-
-		Scene menuScene = new Scene(mainSP, 1280, 720);
-		this.setScene(menuScene);
-		this.setResizable(false);
-		this.show();
 	}
 
 	private void buildMainMenu()
 	{
 		mainSP = new StackPane();
-		mainSP.setBackground(new Background(new BackgroundImage(new Image("/resources/MainMenu01.jpg"),BackgroundRepeat.REPEAT, 
-				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT)));
-		
+		mainSP.setBackground(
+				new Background(new BackgroundImage(new Image("/resources/MainMenu01.jpg"), BackgroundRepeat.REPEAT,
+						BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+
 		title = new Label();
 		title.setText("A f t e r m a t h");
 		title.setFont(Font.font("OCR A Std", FontWeight.EXTRA_BOLD, FontPosture.REGULAR, 80));
@@ -64,78 +65,133 @@ public class MainMenuGUI extends Stage
 		labelReflection.setFraction(0.5f);
 		title.setEffect(labelReflection);
 
-		btNew = new Button("New Game");
 		btNew.setFont(Font.font("OCR A Std", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		btNew.setTextFill(Color.MEDIUMTURQUOISE);
-		btNew.setPadding(new Insets(100,0,0,0));
+		btNew.setPadding(new Insets(100, 0, 0, 0));
 		btNew.setStyle("-fx-background-color: transparent;");
 
-		btContinue = new Button("Continue Game");
 		btContinue.setFont(Font.font("OCR A Std", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		btContinue.setTextFill(Color.MEDIUMTURQUOISE);
 		btContinue.setStyle("-fx-background-color: transparent;");
 
-		btOptions = new Button("Options");
 		btOptions.setFont(Font.font("OCR A Std", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		btOptions.setTextFill(Color.MEDIUMTURQUOISE);
 		btOptions.setStyle("-fx-background-color: transparent;");
 
-		btExit = new Button("Exit");
+		btCredits.setFont(Font.font("OCR A Std", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		btCredits.setTextFill(Color.MEDIUMTURQUOISE);
+		btCredits.setStyle("-fx-background-color: transparent;");
+
 		btExit.setFont(Font.font("OCR A Std", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		btExit.setTextFill(Color.MEDIUMTURQUOISE);
-		btExit.setStyle("-fx-background-color: transparent;");;
+		btExit.setStyle("-fx-background-color: transparent;");
 
 		VBox menuVBox = new VBox();
 		menuVBox.setAlignment(Pos.CENTER);
 		menuVBox.setSpacing(30);
-		menuVBox.getChildren().addAll( title, btNew, btContinue, btOptions, btExit);
+		menuVBox.getChildren().addAll(title, btNew, btContinue, btOptions, btCredits, btExit);
 
 		mainSP.getChildren().add(menuVBox);
 		mainSP.setAlignment(Pos.CENTER);
+
+		menuScene = new Scene(mainSP, 1280, 720);
+		this.setScene(menuScene);
+		this.setResizable(false);
+		this.show();
+	}
+
+	private void Options()
+	{
+		mainSP = new StackPane();
+		mainSP.setBackground(
+				new Background(new BackgroundImage(new Image("/resources/MainMenu01.jpg"), BackgroundRepeat.REPEAT,
+						BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+
+		title = new Label();
+		title.setText("Options");
+		title.setFont(Font.font("OCR A Std", FontWeight.EXTRA_BOLD, FontPosture.REGULAR, 60));
+		title.setTextFill(Color.MEDIUMTURQUOISE);
+
+		btOptionsBack.setFont(Font.font("OCR A Std", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		btOptionsBack.setTextFill(Color.MEDIUMTURQUOISE);
+		btOptionsBack.setStyle("-fx-background-color: transparent;");
+
+		VBox menuVBox = new VBox();
+		menuVBox.setAlignment(Pos.CENTER);
+		menuVBox.setSpacing(30);
+		menuVBox.getChildren().addAll(title, btOptionsBack);
+
+		mainSP.getChildren().add(menuVBox);
+		mainSP.setAlignment(Pos.CENTER);
+
+		menuScene = new Scene(mainSP, 1280, 720);
+		this.setScene(menuScene);
+		this.setResizable(false);
+		this.show();
+
+	}
+
+	private void initButtons()
+	{
+		btNew = new Button("New Game");
+		btContinue = new Button("Continue Game");
+		btOptions = new Button("Options");
+		btCredits = new Button("Credits");
+		btExit = new Button("Exit");
+		btOptionsBack = new Button("Back");
+
 	}
 
 	private void buildButtonActions()
 	{
 		btNew.setOnAction(e ->
 		{
-			new InGameGUI();
+			new GameUI();
 			mp.stop();
 			this.close();
 		});
-		
+
 		btContinue.setOnAction(e ->
 		{
-			
+
 		});
-		
+
 		btOptions.setOnAction(e ->
 		{
-			
+			Options();
 		});
-		
+
+		btOptionsBack.setOnAction(e ->
+		{
+			buildMainMenu();
+		});
+
+		btCredits.setOnAction(e ->
+		{
+
+		});
+
 		btExit.setOnAction(e ->
 		{
 			Platform.exit();
 		});
 	}
-	
+
 	private void playMusic()
 	{
 		try
 		{
-			mp = new MediaPlayer(new Media(new File("Monster-Stake-Out.mp3").toURI().toString()));
+			mp = new MediaPlayer(new Media(getClass().getClassLoader().getResource("resources/Monster-Stake-Out.mp3").toString())); //magic incantation I used to pull mp3 from resources
 			mp.play();
 			mp.setCycleCount(Integer.MAX_VALUE);
-		}
-		catch (IllegalArgumentException iae)
+		} catch (IllegalArgumentException iae)
 		{
-			System.out.println("Still incorrect");
+			System.out.println("IllegalArgumentException in playMusic in MainMenu");
+			System.exit(0);
+		} catch (MediaException me)
+		{
+			System.out.println("Media Exception in playMusic in MainMenu");
 			System.exit(0);
 		}
-		catch (MediaException me)
-		{
-			System.out.println("Still incorrect2");
-			System.exit(0);				
-		}	
 	}
 }
