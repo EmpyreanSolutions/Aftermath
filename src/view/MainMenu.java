@@ -37,7 +37,7 @@ public class MainMenu extends Stage
 	private Button btNew;
 	private Button btContinue;
 	private Button btOptions;
-	private Button btOptionsBack;
+	private Button btBack;
 	private Button btCredits;
 	private Button btExit;
 	private MediaPlayer mp;
@@ -100,7 +100,7 @@ public class MainMenu extends Stage
 		this.show();
 	}
 
-	private void Options()
+	private void options()
 	{
 		mainSP = new StackPane();
 		mainSP.setBackground(
@@ -112,14 +112,14 @@ public class MainMenu extends Stage
 		title.setFont(Font.font("OCR A Std", FontWeight.EXTRA_BOLD, FontPosture.REGULAR, 60));
 		title.setTextFill(Color.MEDIUMTURQUOISE);
 
-		btOptionsBack.setFont(Font.font("OCR A Std", FontWeight.BOLD, FontPosture.REGULAR, 20));
-		btOptionsBack.setTextFill(Color.MEDIUMTURQUOISE);
-		btOptionsBack.setStyle("-fx-background-color: transparent;");
+		btBack.setFont(Font.font("OCR A Std", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		btBack.setTextFill(Color.MEDIUMTURQUOISE);
+		btBack.setStyle("-fx-background-color: transparent;");
 
 		VBox menuVBox = new VBox();
 		menuVBox.setAlignment(Pos.CENTER);
 		menuVBox.setSpacing(30);
-		menuVBox.getChildren().addAll(title, btOptionsBack);
+		menuVBox.getChildren().addAll(title, btBack);
 
 		mainSP.getChildren().add(menuVBox);
 		mainSP.setAlignment(Pos.CENTER);
@@ -128,7 +128,45 @@ public class MainMenu extends Stage
 		this.setScene(menuScene);
 		this.setResizable(false);
 		this.show();
+	}
 
+	private void credits()
+	{
+		mainSP = new StackPane();
+		mainSP.setBackground(
+				new Background(new BackgroundImage(new Image("/resources/MainMenu01.jpg"), BackgroundRepeat.REPEAT,
+						BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+
+		title = new Label();
+		title.setText("Credits");
+		title.setTextFill(Color.MEDIUMTURQUOISE);
+		title.setFont(Font.font("OCR A Std", FontWeight.EXTRA_BOLD, FontPosture.REGULAR, 60));
+
+		Label name1 = new Label("Daniel Sales");
+		name1.setTextFill(Color.MEDIUMTURQUOISE);
+		name1.setFont((Font.font("OCR A Std", FontWeight.BOLD, FontPosture.REGULAR, 20)));
+
+		Label name2 = new Label("Kenneth Sales");
+		name2.setTextFill(Color.MEDIUMTURQUOISE);
+		name2.setFont((Font.font("OCR A Std", FontWeight.BOLD, FontPosture.REGULAR, 20)));
+
+		btBack.setTextFill(Color.MEDIUMTURQUOISE);
+		btBack.setFont(Font.font("OCR A Std", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		btBack.setStyle("-fx-background-color: transparent;");
+		btBack.setPadding(new Insets(50, 0, 0, 0));
+
+		VBox menuVBox = new VBox();
+		menuVBox.setAlignment(Pos.CENTER);
+		menuVBox.setSpacing(20);
+		menuVBox.getChildren().addAll(title, name1, name2, btBack);
+
+		mainSP.getChildren().add(menuVBox);
+		mainSP.setAlignment(Pos.CENTER);
+
+		menuScene = new Scene(mainSP, 1280, 720);
+		this.setScene(menuScene);
+		this.setResizable(false);
+		this.show();
 	}
 
 	private void initButtons()
@@ -138,8 +176,7 @@ public class MainMenu extends Stage
 		btOptions = new Button("Options");
 		btCredits = new Button("Credits");
 		btExit = new Button("Exit");
-		btOptionsBack = new Button("Back");
-
+		btBack = new Button("Back");
 	}
 
 	private void buildButtonActions()
@@ -158,17 +195,17 @@ public class MainMenu extends Stage
 
 		btOptions.setOnAction(e ->
 		{
-			Options();
+			options();
 		});
 
-		btOptionsBack.setOnAction(e ->
+		btBack.setOnAction(e ->
 		{
 			buildMainMenu();
 		});
 
 		btCredits.setOnAction(e ->
 		{
-
+			credits();
 		});
 
 		btExit.setOnAction(e ->
@@ -181,7 +218,16 @@ public class MainMenu extends Stage
 	{
 		try
 		{
-			mp = new MediaPlayer(new Media(getClass().getClassLoader().getResource("resources/Monster-Stake-Out.mp3").toString())); //magic incantation I used to pull mp3 from resources
+			mp = new MediaPlayer(
+					new Media(getClass().getClassLoader().getResource("resources/Monster-Stake-Out.mp3").toString())); // magic
+																														// incantation
+																														// I
+																														// used
+																														// to
+																														// pull
+																														// mp3
+																														// from
+																														// resources
 			mp.play();
 			mp.setCycleCount(Integer.MAX_VALUE);
 		} catch (IllegalArgumentException iae)

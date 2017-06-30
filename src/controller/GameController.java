@@ -39,7 +39,7 @@ public class GameController
 		predatorRoom = new Room().getRoom(1035);
 		targetRoom = new Room().getRoom(playerRoom.getRoomID());
 		player = new Player("Kenneth",playerRoom);
-		predator = new Lifeform("Shiva",predatorRoom);
+		predator = new Lifeform("Specimen #0089",predatorRoom);
 		returnMessage = "";
 		ptPlayer = playerRoom.getCenter();
 		ptPredator = predatorRoom.getCenter();
