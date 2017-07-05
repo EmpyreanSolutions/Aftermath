@@ -2,7 +2,6 @@ package view;
 
 import javafx.util.Duration;
 import controller.GameController;
-import controller.ReturnInfo;
 import controller.Room;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -18,8 +17,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.Reflection;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -29,15 +26,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class GameUI extends Stage
 {
 
 	GameController gc = new GameController();
-	ReturnInfo returnInfo;
+	String returnMessage;
 
 	Timeline animation;
 	EventHandler<ActionEvent> eventHandler;
@@ -274,14 +269,14 @@ public class GameUI extends Stage
 
 	private void setVisibleButtons()
 	{
-		if(returnInfo.getPlayerRoom().getHasNorthRoom())
+		if(gc.getPlayerRoom().getHasNorthRoom())
 		{
 			btNorth.setVisible(true);
 		} else
 		{
 			btNorth.setVisible(false);
 		}
-		if(returnInfo.getPlayerRoom().getHasEastRoom())
+		if(gc.getPlayerRoom().getHasEastRoom())
 		{
 			btEast.setVisible(true);
 		} else
@@ -289,28 +284,28 @@ public class GameUI extends Stage
 			btEast.setVisible(false);
 		}
 
-		if(returnInfo.getPlayerRoom().getHasSouthRoom())
+		if(gc.getPlayerRoom().getHasSouthRoom())
 		{
 			btSouth.setVisible(true);
 		} else
 		{
 			btSouth.setVisible(false);
 		}
-		if(returnInfo.getPlayerRoom().getHasWestRoom())
+		if(gc.getPlayerRoom().getHasWestRoom())
 		{
 			btWest.setVisible(true);
 		} else
 		{
 			btWest.setVisible(false);
 		}
-		if(returnInfo.getPlayerRoom().getHasUpRoom())
+		if(gc.getPlayerRoom().getHasUpRoom())
 		{
 			btUp.setVisible(true);
 		} else
 		{
 			btUp.setVisible(false);
 		}
-		if(returnInfo.getPlayerRoom().getHasDownRoom())
+		if(gc.getPlayerRoom().getHasDownRoom())
 		{
 			btDown.setVisible(true);
 		} else
@@ -321,13 +316,13 @@ public class GameUI extends Stage
 
 	private void navigate(String direction) // throws SQLException
 	{
-		returnInfo = gc.navigateControl(direction);
-		if(!(returnInfo.getMessage().equals("")))
+		returnMessage = gc.navigateControl(direction);
+		if(!(returnMessage.equals("")))
 		{
-			centerText.appendText(returnInfo.getMessage());
+			centerText.appendText(returnMessage);
 		}
 		setVisibleButtons();
-		topLabel.setText(returnInfo.getPlayerRoom().getRoomName());
+		topLabel.setText(gc.getPlayerRoom().getRoomName());
 	}
 
 	private void buttonActions()
@@ -363,8 +358,8 @@ public class GameUI extends Stage
 
 		btSound.setOnAction(e ->
 		{
-			returnInfo = gc.targetControl();
-			centerText.appendText("Sound: " + returnInfo.getPlayerRoom().getRoomID() + "  " + returnInfo.getMessage());
+			returnMessage = gc.targetControl();
+			centerText.appendText("Sound: " + gc.getPlayerRoom().getRoomID() + "  " + returnMessage);
 		});
 
 		btExit.setOnAction(e ->
@@ -374,8 +369,8 @@ public class GameUI extends Stage
 
 		btMap.setOnAction(e ->
 		{
-			returnInfo = gc.mapControl();
-			centerText.appendText(returnInfo.getMessage());
+			returnMessage = gc.mapControl();
+			centerText.appendText(returnMessage);
 		});
 		EventHandler<KeyEvent> eventHandler2 = e ->
 		{
@@ -413,8 +408,8 @@ public class GameUI extends Stage
 		btPlay.setOnAction(e ->
 		{
 			animation.play();
-			returnInfo = gc.mapControl();
-			centerText.appendText(returnInfo.getMessage());
+			returnMessage = gc.mapControl();
+			centerText.appendText(returnMessage);
 			centerText.setOnKeyPressed(eventHandler2);
 			centerText.requestFocus();
 			setVisibleButtons();
@@ -437,11 +432,11 @@ public class GameUI extends Stage
 		// Event handler for animation
 		eventHandler = e ->
 		{
-			returnInfo = gc.movePredator();
-			centerText.appendText(returnInfo.getMessage());
-			if(returnInfo.getPlayerRoom().getRoomID() == returnInfo.getPredatorRoom().getRoomID())
+			returnMessage = gc.movePredator();
+			centerText.appendText(returnMessage);
+			if(gc.getTargetRoom().getRoomID() == gc.getPredatorRoom().getRoomID())
 			{
-				centerText.appendText("YOU GOT CAUGHT!!!");
+				centerText.appendText("Predator found TargetRoom!!!");
 				animation.stop();
 				btNorth.setVisible(false);
 				btEast.setVisible(false);
