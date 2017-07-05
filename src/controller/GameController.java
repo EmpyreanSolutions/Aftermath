@@ -1,7 +1,6 @@
 package controller;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import javafx.geometry.Point3D;
 import model.SQLiteDB;
 
@@ -24,9 +23,7 @@ public class GameController
 	private Room predatorRoom;
 	private Room targetRoom;
 	private String returnMessage;
-	private ReturnInfo returnInfo;
 	
-	private Point3D ptPlayer;
 	private Point3D ptPredator;
 	private Point3D ptTarget;
 	private Point3D ptNorth;
@@ -42,15 +39,12 @@ public class GameController
 		player = new Player("Kenneth",playerRoom);
 		predator = new Lifeform("Specimen #0089",predatorRoom);
 		returnMessage = "";
-		ptPlayer = playerRoom.getCenter();
 		ptPredator = predatorRoom.getCenter();
 		ptTarget = playerRoom.getCenter();
 		ptNorth = new Point3D(0,1,0);
 		ptEast = new Point3D(1,0,0);
 		ptSouth = new Point3D(0,-1,0);
 		ptWest = new Point3D(-1,0,0);
-		
-		returnInfo = new ReturnInfo(returnMessage,playerRoom,predatorRoom);
 	}
 
 	/**
@@ -73,23 +67,20 @@ public class GameController
 	private void changeRoom(int nextRoomID)
 	{
 		playerRoom = playerRoom.getRoom(nextRoomID);
-		returnInfo.setPlayerRoom(playerRoom);
 		player.setRoom(playerRoom);
 
 		if (playerRoom.getVisited() == 1)  // visited
 		{
 			returnMessage += playerRoom.getRoomName() + "\n";	
-//			System.out.println("returnMessage visited: " + returnMessage);
 		}
 		else // not visited
 		{
 			playerRoom.upDateVisited(1);
-			returnMessage += playerRoom.getRoomName() + "  " + playerRoom.getRoomDescription() + "\n";
-//			System.out.println("returnMessage not visited: " + returnMessage);			
+			returnMessage += playerRoom.getRoomName() + "  " + playerRoom.getRoomDescription() + "\n";		
 		}
 	}
 
-	public ReturnInfo navigateControl(String command)
+	public String navigateControl(String command)
 	{
 		returnMessage = "";
 		
@@ -180,34 +171,27 @@ public class GameController
 			break;
 
 		}
-		returnInfo.setMessage(returnMessage);
-		return returnInfo;
+		return returnMessage;
 	}
 	
-	public ReturnInfo mapControl()
+	public String mapControl()
 	{
 		returnMessage = "Player: " + player.getRoom().getRoomName() + "    Shiva: " + predator.getRoom().getRoomName() 
 				+ "   Target: " + targetRoom.getRoomName()+ "\n";
-		returnInfo.setMessage(returnMessage);
-		return returnInfo;
+		return returnMessage;
 	}
 	
-	public ReturnInfo targetControl()
+	public String targetControl()
 	{;
 		targetRoom = targetRoom.getRoom(playerRoom.getRoomID());
 		returnMessage = targetRoom.getRoomName() + "\n";
-		returnInfo.setMessage(returnMessage);
-		return returnInfo;		
+		return returnMessage;		
 	}
 
-	public ReturnInfo movePredator()
+	public String movePredator()
 	{
 		ptTarget = targetRoom.getCenter();
-		ptPlayer = playerRoom.getCenter();
 		ptPredator = predatorRoom.getCenter();
-//		System.out.println("ptPlayer:   " + ptPlayer);
-//		System.out.println("ptPredator: " + ptPredator);
-//		System.out.println("ptTarget:   " + ptTarget);
 
 		int iAngleNorth = (int)Math.round(ptPredator.angle(ptTarget,ptPredator.add(ptNorth)));
 		int iAngleEast  = (int)Math.round(ptPredator.angle(ptTarget,ptPredator.add(ptEast)));
@@ -243,17 +227,41 @@ public class GameController
 				
 		predatorRoom = predatorRoom.getRoom(nextRoomID);
 		predator.setRoom(predatorRoom);
-		returnInfo.setPredatorRoom(predatorRoom);
 		
 		returnMessage = "Player: " + player.getRoom().getRoomName() + "    Shiva: " + predator.getRoom().getRoomName() 
 				+ "   Target: " + targetRoom.getRoomName() + "\n";
-//		returnMessage += "  iAngleNorth: " + iAngleNorth + "  iAngleEast: " + iAngleEast;
-//		returnMessage += "  iAngleSouth: " + iAngleSouth + "  iAngleWest: " + iAngleWest 
-//				       + "  minAngle: " + minAngle + "   nextRoomID: " + nextRoomID + "\n";
-		returnInfo.setMessage(returnMessage);
 		
-		return returnInfo;
+		return returnMessage;
 	}
-	
+
+	public Room getPlayerRoom()
+	{
+		return playerRoom;
+	}
+
+	public void setPlayerRoom(Room playerRoom)
+	{
+		this.playerRoom = playerRoom;
+	}
+
+	public Room getPredatorRoom()
+	{
+		return predatorRoom;
+	}
+
+	public void setPredatorRoom(Room predatorRoom)
+	{
+		this.predatorRoom = predatorRoom;
+	}
+
+	public Room getTargetRoom()
+	{
+		return targetRoom;
+	}
+
+	public void setTargetRoom(Room targetRoom)
+	{
+		this.targetRoom = targetRoom;
+	}
 
 }
