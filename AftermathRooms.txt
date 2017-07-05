@@ -8,15 +8,15 @@
 1008	LT Dr. Janette Howard's Quarters	0	1009	1014	0	0	0	11	74	9	0	TBD	TBD
 1009	LT Dr. Henry Howard's Quarters	0	0	1016	1008	0	0	15	74	9	0	TBD	TBD
 1010	Deck 1 Hallway 2 Section B	1004	1011	1018	0	0	0	18	74	9	0	TBD	TBD
-1011	Midshipman Player's Quarters	0	0	0	1010	0	0	21	74	9	0	TBD	TBD
+1011	Midshipman Player's Quarters	0	0	0	1010	0	0	20	74	9	0	TBD	TBD
 1012	CWO Copilot Leon Jager's Quarters	0	1013	0	0	0	0	5	70	9	0	TBD	TBD
 1013	Deck 1 Hallway 1 Section C	1007	1014	1021	1012	0	0	8	70	9	0	TBD	TBD
 1014	Deck 1 Hallway 3 Section A	1008	1016	1015	1013	0	0	11	71	9	0	TBD	TBD
 1015	LT Dr. Jennifer Xang's Quarters	1014	0	0	0	0	0	11	70	9	0	TBD	TBD
 1016	Deck 1 Hallway 3 Section B	1009	1018	1017	1014	0	0	15	71	9	0	TBD	TBD
 1017	LT Dr. Dennis Fretman's Quarters	1016	0	0	0	0	0	15	70	9	0	TBD	TBD
-1018	Deck 1 Hallway 2 Section C	1010	1019	1022	1016	0	0	14	70	9	0	TBD	TBD
-1019	WO Steve Williams' Quarters	0	0	0	1018	0	0	17	70	9	0	TBD	TBD
+1018	Deck 1 Hallway 2 Section C	1010	1019	1022	1016	0	0	18	70	9	0	TBD	TBD
+1019	WO Steve Williams' Quarters	0	0	0	1018	0	0	20	70	9	0	TBD	TBD
 1020	LT Bill Limburg's Quarters	0	1021	0	0	0	0	5	66	9	0	TBD	TBD
 1021	Deck 1 Hallway 1 Section D	1013	0	1025	1020	0	0	8	66	9	0	TBD	TBD
 1022	Deck 1 Hallway 2 Section D	1018	1023	1030	0	0	0	18	66	9	0	TBD	TBD

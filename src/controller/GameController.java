@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javafx.geometry.Point3D;
 import model.SQLiteDB;
 
@@ -50,7 +51,6 @@ public class GameController
 		ptWest = new Point3D(-1,0,0);
 		
 		returnInfo = new ReturnInfo(returnMessage,playerRoom,predatorRoom);
-	
 	}
 
 	/**
@@ -221,28 +221,24 @@ public class GameController
 		{
 			minAngle = iAngleNorth;
 			nextRoomID = predatorRoom.getNorthRoom();
-//			System.out.println("Going North " + nextRoomID);
 		}
 		
 		if (predatorRoom.getHasEastRoom() && (iAngleEast < minAngle))
 		{
 			minAngle = iAngleEast;
 			nextRoomID = predatorRoom.getEastRoom();
-//			System.out.println("Going East");
 		}
 		
 		if (predatorRoom.getHasSouthRoom() && (iAngleSouth < minAngle))
 		{
 			minAngle = iAngleSouth;
 			nextRoomID = predatorRoom.getSouthRoom();
-//			System.out.println("Going South");
 		}
 		
 		if (predatorRoom.getHasWestRoom() && (iAngleWest < minAngle))
 		{
 			minAngle = iAngleWest;
 			nextRoomID = predatorRoom.getWestRoom();
-			System.out.println("Going West");
 		}
 				
 		predatorRoom = predatorRoom.getRoom(nextRoomID);
@@ -250,12 +246,12 @@ public class GameController
 		returnInfo.setPredatorRoom(predatorRoom);
 		
 		returnMessage = "Player: " + player.getRoom().getRoomName() + "    Shiva: " + predator.getRoom().getRoomName() 
-				+ "   Target: " + targetRoom.getRoomName();
-		returnMessage += "  iAngleNorth: " + iAngleNorth + "  iAngleEast: " + iAngleEast;
-		returnMessage += "  iAngleSouth: " + iAngleSouth + "  iAngleWest: " + iAngleWest 
-				       + "  minAngle: " + minAngle + "   nextRoomID: " + nextRoomID + "\n";
+				+ "   Target: " + targetRoom.getRoomName() + "\n";
+//		returnMessage += "  iAngleNorth: " + iAngleNorth + "  iAngleEast: " + iAngleEast;
+//		returnMessage += "  iAngleSouth: " + iAngleSouth + "  iAngleWest: " + iAngleWest 
+//				       + "  minAngle: " + minAngle + "   nextRoomID: " + nextRoomID + "\n";
 		returnInfo.setMessage(returnMessage);
-
+		
 		return returnInfo;
 	}
 	
