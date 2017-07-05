@@ -36,8 +36,8 @@ public class GameController
 		playerRoom = new Room().getRoom(1011);
 		predatorRoom = new Room().getRoom(1035);
 		targetRoom = new Room().getRoom(playerRoom.getRoomID());
-		player = new Player("Kenneth",playerRoom);
-		predator = new Lifeform("Specimen #0089",predatorRoom);
+		player = new Player("Kenneth");
+		predator = new Lifeform("Specimen #0089");
 		returnMessage = "";
 		ptPredator = predatorRoom.getCenter();
 		ptTarget = playerRoom.getCenter();
@@ -67,7 +67,7 @@ public class GameController
 	private void changeRoom(int nextRoomID)
 	{
 		playerRoom = playerRoom.getRoom(nextRoomID);
-		player.setRoom(playerRoom);
+//		player.setRoom(playerRoom);
 
 		if (playerRoom.getVisited() == 1)  // visited
 		{
@@ -176,8 +176,9 @@ public class GameController
 	
 	public String mapControl()
 	{
-		returnMessage = "Player: " + player.getRoom().getRoomName() + "    Shiva: " + predator.getRoom().getRoomName() 
-				+ "   Target: " + targetRoom.getRoomName()+ "\n";
+		returnMessage = player.getName() + ": " + playerRoom.getRoomName() 
+		+ "    "+ predator.getName() + ": " + predatorRoom.getRoomName() 
+		+ "     Target: " + targetRoom.getRoomName() + "\n";
 		return returnMessage;
 	}
 	
@@ -226,10 +227,11 @@ public class GameController
 		}
 				
 		predatorRoom = predatorRoom.getRoom(nextRoomID);
-		predator.setRoom(predatorRoom);
+//		predator.setRoom(predatorRoom);
 		
-		returnMessage = "Player: " + player.getRoom().getRoomName() + "    Shiva: " + predator.getRoom().getRoomName() 
-				+ "   Target: " + targetRoom.getRoomName() + "\n";
+		returnMessage = player.getName() + ": " + playerRoom.getRoomName() 
+		+ "     " + predator.getName() + ": " + predatorRoom.getRoomName() 
+				+ "     Target: " + targetRoom.getRoomName() + "\n";
 		
 		return returnMessage;
 	}
@@ -263,5 +265,27 @@ public class GameController
 	{
 		this.targetRoom = targetRoom;
 	}
+
+	public Player getPlayer()
+	{
+		return player;
+	}
+
+	public void setPlayer(Player player)
+	{
+		this.player = player;
+	}
+
+	public Lifeform getPredator()
+	{
+		return predator;
+	}
+
+	public void setPredator(Lifeform predator)
+	{
+		this.predator = predator;
+	}
+	
+	
 
 }
