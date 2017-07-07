@@ -445,6 +445,17 @@ public class GameUI extends Stage
 				btUp.setVisible(false);
 				btDown.setVisible(false);
 			}
+			else if (gc.getPlayerRoom().getRoomID() == gc.getPredatorRoom().getRoomID())
+			{
+				centerText.appendText("Predator caught player!!!");
+				animation.stop();
+				btNorth.setVisible(false);
+				btEast.setVisible(false);
+				btSouth.setVisible(false);
+				btWest.setVisible(false);
+				btUp.setVisible(false);
+				btDown.setVisible(false);				
+			}
 		};
 
 		// Instantiate animation and set parameters to start game

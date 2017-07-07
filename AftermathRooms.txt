@@ -15,7 +15,7 @@
 1015	LT Dr. Jennifer Xang's Quarters	1014	0	0	0	0	0	11	70	9	0	0	TBD																	
 1016	Deck 1 Hallway 3 Section B	1009	1018	1017	1014	0	0	15	71	9	0	1	TBD																	
 1017	LT Dr. Dennis Fretman's Quarters	1016	0	0	0	0	0	15	70	9	0	0	TBD																	
-1018	Deck 1 Hallway 2 Section C	1010	1019	1022	1016	0	0	14	70	9	0	1	TBD																	
+1018	Deck 1 Hallway 2 Section C	1010	1019	1022	1016	0	0	18	70	9	0	1	TBD																	
 1019	WO Steve Williams' Quarters	0	0	0	1018	0	0	21	70	9	0	0	TBD																	
 1020	LT Bill Limburg's Quarters	0	1021	0	0	0	0	5	66	9	0	0	TBD																	
 1021	Deck 1 Hallway 1 Section D	1013	0	1025	1020	0	0	8	66	9	0	1	TBD																	
