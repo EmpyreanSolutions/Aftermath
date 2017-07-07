@@ -1,6 +1,8 @@
 package controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Random;
 import javafx.geometry.Point3D;
 import model.SQLiteDB;
 
@@ -23,13 +25,18 @@ public class GameController
 	private Room predatorRoom;
 	private Room targetRoom;
 	private String returnMessage;
-	
+
 	private Point3D ptPredator;
 	private Point3D ptTarget;
 	private Point3D ptNorth;
 	private Point3D ptEast;
 	private Point3D ptSouth;
 	private Point3D ptWest;
+
+	boolean monsterAggresive;
+	private ArrayList<Integer> possibleMonsterRooms;
+	private int previousRoomID;
+	private Random ran;
 
 	public GameController()
 	{
@@ -41,10 +48,15 @@ public class GameController
 		returnMessage = "";
 		ptPredator = predatorRoom.getCenter();
 		ptTarget = playerRoom.getCenter();
-		ptNorth = new Point3D(0,1,0);
-		ptEast = new Point3D(1,0,0);
-		ptSouth = new Point3D(0,-1,0);
-		ptWest = new Point3D(-1,0,0);
+		ptNorth = new Point3D(0, 1, 0);
+		ptEast = new Point3D(1, 0, 0);
+		ptSouth = new Point3D(0, -1, 0);
+		ptWest = new Point3D(-1, 0, 0);
+
+		monsterAggresive = false;
+		previousRoomID = 0;
+		possibleMonsterRooms = new ArrayList<Integer>();
+		ran = new Random();
 	}
 
 	/**
@@ -67,23 +79,23 @@ public class GameController
 	private void changeRoom(int nextRoomID)
 	{
 		playerRoom = playerRoom.getRoom(nextRoomID);
-//		player.setRoom(playerRoom);
+		// player.setRoom(playerRoom);
 
-		if (playerRoom.getVisited() == 1)  // visited
+		if(playerRoom.getVisited() == 1) // visited
 		{
-			returnMessage += playerRoom.getRoomName() + "\n";	
+			returnMessage += playerRoom.getRoomName() + "\n";
 		}
 		else // not visited
 		{
 			playerRoom.upDateVisited(1);
-			returnMessage += playerRoom.getRoomName() + "  " + playerRoom.getRoomDescription() + "\n";		
+			returnMessage += playerRoom.getRoomName() + "  " + playerRoom.getRoomDescription() + "\n";
 		}
 	}
 
 	public String navigateControl(String command)
 	{
 		returnMessage = "";
-		
+
 		switch(command)
 		{
 		case "exit":
@@ -163,7 +175,7 @@ public class GameController
 			}
 		}
 			break;
-			
+
 		default:
 		{
 			returnMessage += "Invalid Command. Type \"Commands\" for a list of valid commands." + "\n";
@@ -173,20 +185,21 @@ public class GameController
 		}
 		return returnMessage;
 	}
-	
+
 	public String mapControl()
 	{
-		returnMessage = player.getName() + ": " + playerRoom.getRoomName() 
-		+ "    "+ predator.getName() + ": " + predatorRoom.getRoomName() 
-		+ "     Target: " + targetRoom.getRoomName() + "\n";
+		returnMessage = player.getName() + ": " + playerRoom.getRoomName() + "    " + predator.getName() + ": "
+				+ predatorRoom.getRoomName() + "     Target: " + targetRoom.getRoomName() + "\n";
 		return returnMessage;
 	}
-	
+
 	public String targetControl()
-	{;
+	{
+		;
 		targetRoom = targetRoom.getRoom(playerRoom.getRoomID());
 		returnMessage = targetRoom.getRoomName() + "\n";
-		return returnMessage;		
+		monsterAggresive = true;
+		return returnMessage;
 	}
 
 	public String movePredator()
@@ -194,46 +207,108 @@ public class GameController
 		ptTarget = targetRoom.getCenter();
 		ptPredator = predatorRoom.getCenter();
 
-		int iAngleNorth = (int)Math.round(ptPredator.angle(ptTarget,ptPredator.add(ptNorth)));
-		int iAngleEast  = (int)Math.round(ptPredator.angle(ptTarget,ptPredator.add(ptEast)));
-		int iAngleSouth = (int)Math.round(ptPredator.angle(ptTarget,ptPredator.add(ptSouth)));
-		int iAngleWest  = (int)Math.round(ptPredator.angle(ptTarget,ptPredator.add(ptWest)));
-		
-		int minAngle = 400;
-		int nextRoomID = 0;
-		
-		if (predatorRoom.hasNorthRoom() && (iAngleNorth < minAngle))
+		if(monsterAggresive)
 		{
-			minAngle = iAngleNorth;
-			nextRoomID = predatorRoom.getNorthRoom();
+
+			int iAngleNorth = (int) Math.round(ptPredator.angle(ptTarget, ptPredator.add(ptNorth)));
+			int iAngleEast = (int) Math.round(ptPredator.angle(ptTarget, ptPredator.add(ptEast)));
+			int iAngleSouth = (int) Math.round(ptPredator.angle(ptTarget, ptPredator.add(ptSouth)));
+			int iAngleWest = (int) Math.round(ptPredator.angle(ptTarget, ptPredator.add(ptWest)));
+
+			int minAngle = 400;
+			int nextRoomID = 0;
+
+			if(predatorRoom.hasNorthRoom() && (iAngleNorth < minAngle))
+			{
+				minAngle = iAngleNorth;
+				nextRoomID = predatorRoom.getNorthRoom();
+			}
+
+			if(predatorRoom.hasEastRoom() && (iAngleEast < minAngle))
+			{
+				minAngle = iAngleEast;
+				nextRoomID = predatorRoom.getEastRoom();
+			}
+
+			if(predatorRoom.hasSouthRoom() && (iAngleSouth < minAngle))
+			{
+				minAngle = iAngleSouth;
+				nextRoomID = predatorRoom.getSouthRoom();
+			}
+
+			if(predatorRoom.hasWestRoom() && (iAngleWest < minAngle))
+			{
+				minAngle = iAngleWest;
+				nextRoomID = predatorRoom.getWestRoom();
+			}
+
+			predatorRoom = predatorRoom.getRoom(nextRoomID);
+			// predator.setRoom(predatorRoom);
+			returnMessage = player.getName() + ": " + playerRoom.getRoomName() + "     " + predator.getName() + ": "
+					+ predatorRoom.getRoomName() + "     Target: " + targetRoom.getRoomName() + "\n";
 		}
-		
-		if (predatorRoom.hasEastRoom() && (iAngleEast < minAngle))
+		else // monster not aggressive, wandering the allowedMonsterRoom(s)
 		{
-			minAngle = iAngleEast;
-			nextRoomID = predatorRoom.getEastRoom();
+//			System.out.println("previousRoom: " + previousRoomID);
+			possibleMonsterRooms.clear();
+
+			if(predatorRoom.hasNorthRoom() && predatorRoom.getRoom(predatorRoom.getNorthRoom()).isAllowedMonsterRoom()
+					&& (predatorRoom.getNorthRoom() != previousRoomID))
+			{
+//				System.out.println("northRoom: " + predatorRoom.getNorthRoom());
+				possibleMonsterRooms.add(predatorRoom.getNorthRoom());
+			}
+
+			if(predatorRoom.hasEastRoom() && predatorRoom.getRoom(predatorRoom.getEastRoom()).isAllowedMonsterRoom()
+					&& (predatorRoom.getEastRoom() != previousRoomID))
+			{
+//				System.out.println("eastRoom: " + predatorRoom.getEastRoom());
+				possibleMonsterRooms.add(predatorRoom.getEastRoom());
+			}
+			
+			if(predatorRoom.hasSouthRoom() && predatorRoom.getRoom(predatorRoom.getSouthRoom()).isAllowedMonsterRoom()
+					&& (predatorRoom.getSouthRoom() != previousRoomID))
+			{
+//				System.out.println("southRoom: " + predatorRoom.getSouthRoom());
+				possibleMonsterRooms.add(predatorRoom.getSouthRoom());
+			}
+			
+			if(predatorRoom.hasWestRoom() && predatorRoom.getRoom(predatorRoom.getWestRoom()).isAllowedMonsterRoom()
+					&& (predatorRoom.getWestRoom() != previousRoomID))
+			{
+//				System.out.println("westRoom: " + predatorRoom.getWestRoom());
+				possibleMonsterRooms.add(predatorRoom.getWestRoom());
+			}
+			
+			if(predatorRoom.hasUpRoom() && predatorRoom.getRoom(predatorRoom.getUpRoom()).isAllowedMonsterRoom()
+					&& (predatorRoom.getUpRoom() != previousRoomID))
+			{
+//				System.out.println("upRoom: " + predatorRoom.getUpRoom());
+				possibleMonsterRooms.add(predatorRoom.getUpRoom());
+			}
+			
+			if(predatorRoom.hasDownRoom() && predatorRoom.getRoom(predatorRoom.getDownRoom()).isAllowedMonsterRoom()
+					&& (predatorRoom.getDownRoom() != previousRoomID))
+			{
+//				System.out.println("dwonRoom: " + predatorRoom.getDownRoom());
+				possibleMonsterRooms.add(predatorRoom.getDownRoom());
+			}
+			
+//			System.out.println("size: " + possibleMonsterRooms.size());
+//			System.out.println(possibleMonsterRooms);
+			int index = ran.nextInt(possibleMonsterRooms.size());
+//			System.out.println("nextRoomID: " + possibleMonsterRooms.get(index));
+			previousRoomID = predatorRoom.getRoomID();
+//			System.out.println("new previousRoomID: " + previousRoomID);
+			predatorRoom = predatorRoom.getRoom(possibleMonsterRooms.get(index));
+//			System.out.println();
+			returnMessage = predator.getName() + "   " + predatorRoom.getRoomName() + "\n";
+			
+												
 		}
-		
-		if (predatorRoom.hasSouthRoom() && (iAngleSouth < minAngle))
-		{
-			minAngle = iAngleSouth;
-			nextRoomID = predatorRoom.getSouthRoom();
-		}
-		
-		if (predatorRoom.hasWestRoom() && (iAngleWest < minAngle))
-		{
-			minAngle = iAngleWest;
-			nextRoomID = predatorRoom.getWestRoom();
-		}
-				
-		predatorRoom = predatorRoom.getRoom(nextRoomID);
-//		predator.setRoom(predatorRoom);
-		
-		returnMessage = player.getName() + ": " + playerRoom.getRoomName() 
-		+ "     " + predator.getName() + ": " + predatorRoom.getRoomName() 
-				+ "     Target: " + targetRoom.getRoomName() + "\n";
-		
+
 		return returnMessage;
+
 	}
 
 	public Room getPlayerRoom()
@@ -285,7 +360,5 @@ public class GameController
 	{
 		this.predator = predator;
 	}
-	
-	
 
 }
