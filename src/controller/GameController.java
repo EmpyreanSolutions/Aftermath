@@ -202,25 +202,25 @@ public class GameController
 		int minAngle = 400;
 		int nextRoomID = 0;
 		
-		if (predatorRoom.getHasNorthRoom() && (iAngleNorth < minAngle))
+		if (predatorRoom.hasNorthRoom() && (iAngleNorth < minAngle))
 		{
 			minAngle = iAngleNorth;
 			nextRoomID = predatorRoom.getNorthRoom();
 		}
 		
-		if (predatorRoom.getHasEastRoom() && (iAngleEast < minAngle))
+		if (predatorRoom.hasEastRoom() && (iAngleEast < minAngle))
 		{
 			minAngle = iAngleEast;
 			nextRoomID = predatorRoom.getEastRoom();
 		}
 		
-		if (predatorRoom.getHasSouthRoom() && (iAngleSouth < minAngle))
+		if (predatorRoom.hasSouthRoom() && (iAngleSouth < minAngle))
 		{
 			minAngle = iAngleSouth;
 			nextRoomID = predatorRoom.getSouthRoom();
 		}
 		
-		if (predatorRoom.getHasWestRoom() && (iAngleWest < minAngle))
+		if (predatorRoom.hasWestRoom() && (iAngleWest < minAngle))
 		{
 			minAngle = iAngleWest;
 			nextRoomID = predatorRoom.getWestRoom();

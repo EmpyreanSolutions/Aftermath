@@ -269,14 +269,14 @@ public class GameUI extends Stage
 
 	private void setVisibleButtons()
 	{
-		if(gc.getPlayerRoom().getHasNorthRoom())
+		if(gc.getPlayerRoom().hasNorthRoom())
 		{
 			btNorth.setVisible(true);
 		} else
 		{
 			btNorth.setVisible(false);
 		}
-		if(gc.getPlayerRoom().getHasEastRoom())
+		if(gc.getPlayerRoom().hasEastRoom())
 		{
 			btEast.setVisible(true);
 		} else
@@ -284,28 +284,28 @@ public class GameUI extends Stage
 			btEast.setVisible(false);
 		}
 
-		if(gc.getPlayerRoom().getHasSouthRoom())
+		if(gc.getPlayerRoom().hasSouthRoom())
 		{
 			btSouth.setVisible(true);
 		} else
 		{
 			btSouth.setVisible(false);
 		}
-		if(gc.getPlayerRoom().getHasWestRoom())
+		if(gc.getPlayerRoom().hasWestRoom())
 		{
 			btWest.setVisible(true);
 		} else
 		{
 			btWest.setVisible(false);
 		}
-		if(gc.getPlayerRoom().getHasUpRoom())
+		if(gc.getPlayerRoom().hasUpRoom())
 		{
 			btUp.setVisible(true);
 		} else
 		{
 			btUp.setVisible(false);
 		}
-		if(gc.getPlayerRoom().getHasDownRoom())
+		if(gc.getPlayerRoom().hasDownRoom())
 		{
 			btDown.setVisible(true);
 		} else
