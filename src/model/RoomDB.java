@@ -22,7 +22,7 @@ public class RoomDB
 	        		     rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), 
 	        		     rs.getInt(7), rs.getInt(8),
 	        		     rs.getInt(9), rs.getInt(10), rs.getInt(11), rs.getInt(12),
-	        		     rs.getString(13),rs.getString(14));
+	        		     rs.getInt(13),rs.getString(14));
 	        sdb.close();
 		}
 		catch(SQLException e)
