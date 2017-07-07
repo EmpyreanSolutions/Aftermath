@@ -25,13 +25,6 @@ public class Room
 	private String imageName;
 	private String roomDescription;
 	
-	private boolean hasNorthRoom;
-	private boolean hasEastRoom;
-	private boolean hasSouthRoom;
-	private boolean hasWestRoom;
-	private boolean hasUpRoom;
-	private boolean hasDownRoom;
-
 	public Room()
 	{
 		roomID = 0;
@@ -51,13 +44,6 @@ public class Room
 		visited = 0;		
 		imageName = "";		
 		roomDescription = "";
-		
-		hasNorthRoom = false;
-		hasEastRoom = false;
-		hasSouthRoom = false;
-		hasWestRoom = false;
-		hasUpRoom = false;
-		hasDownRoom = false;
 	}
 	
 	public Room(int roomID, String roomName, 
@@ -79,58 +65,6 @@ public class Room
 		this.visited = visited;
 		this.imageName = imageName;
 		this.roomDescription = roomDescription;
-		if (northRoom > 0)
-		{
-			hasNorthRoom = true;
-		}
-		else
-		{
-			hasNorthRoom = false;
-		}
-		
-		if (eastRoom > 0)
-		{
-			hasEastRoom = true;
-		}
-		else
-		{
-			hasEastRoom = false;
-		}
-		
-		if (southRoom > 0)
-		{
-			hasSouthRoom = true;
-		}
-		else
-		{
-			hasSouthRoom = false;
-		}
-		
-		if (westRoom > 0)
-		{
-			hasWestRoom = true;
-		}
-		else
-		{
-			hasWestRoom = false;
-		}
-		
-		if (upRoom > 0)
-		{
-			hasUpRoom = true;
-		}
-		else
-		{
-			hasUpRoom = false;
-		}
-		if (downRoom > 0)
-		{
-			hasDownRoom = true;
-		}
-		else
-		{
-			hasDownRoom = false;
-		}
 	}
 
 	public Room getRoom(int id) //throws SQLException
@@ -281,66 +215,44 @@ public class Room
 		this.zCoordinate = zCoordinate;
 	}
 
-	public boolean getHasNorthRoom()
+
+	public boolean hasNorthRoom()
 	{
-		return hasNorthRoom;
+		if (northRoom > 0) return true;
+		else return false;
 	}
 
-	public void setHasNorthRoom(boolean hasNorthRoom)
+	public boolean hasEastRoom()
 	{
-		this.hasNorthRoom = hasNorthRoom;
+		if (eastRoom > 0) return true;
+		else return false;
 	}
 
-	public boolean getHasEastRoom()
+	public boolean hasSouthRoom()
 	{
-		return hasEastRoom;
+		if (southRoom > 0) return true;
+		else return false;
 	}
 
-	public void setHasEastRoom(boolean hasEastRoom)
+	public boolean hasWestRoom()
 	{
-		this.hasEastRoom = hasEastRoom;
+		if (westRoom > 0) return true;
+		else return false;
 	}
 
-	public boolean getHasSouthRoom()
+	public boolean hasUpRoom()
 	{
-		return hasSouthRoom;
+		if (upRoom > 0) return true;
+		else return false;
 	}
 
-	public void setHasSouthRoom(boolean hasSouthRoom)
+	public boolean hasDownRoom()
 	{
-		this.hasSouthRoom = hasSouthRoom;
+		if (downRoom > 0) return true;
+		else return false;
 	}
 
-	public boolean getHasWestRoom()
-	{
-		return hasWestRoom;
-	}
 
-	public void setHasWestRoom(boolean hasWestRoom)
-	{
-		this.hasWestRoom = hasWestRoom;
-	}
-	
-	
-	public boolean getHasUpRoom()
-	{
-		return hasUpRoom;
-	}
-
-	public void setHasUpRoom(boolean hasUpRoom)
-	{
-		this.hasUpRoom = hasUpRoom;
-	}
-
-	public boolean getHasDownRoom()
-	{
-		return hasDownRoom;
-	}
-
-	public void setHasDownRoom(boolean hasDownRoom)
-	{
-		this.hasDownRoom = hasDownRoom;
-	}
 
 	public void upDateVisited(int num)
 	{
