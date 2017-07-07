@@ -58,7 +58,7 @@ public class GameDBCreate
 				+ "yCoordinate NOT NULL, "
 				+ "zCoordinate NOT NULL, "
 				+ "visited int NOT NULL, "				
-				+ "imageName text NOT NULL, "
+				+ "allowedMonsterRoom int NOT NULL, "
 				+ "roomDescription text NOT NULL)";
 		sdb.updateDB(sql);
 
@@ -70,21 +70,21 @@ public class GameDBCreate
 			{
 				String line = input.nextLine();
 				String[] split = line.split("\t");
-//				 System.out.println("0 " + split[0]);
-//				 System.out.println("1 " + split[1]);
-//				 System.out.println("2 " + split[2]);
-//				 System.out.println("3 " + split[3]);
-//				 System.out.println("4 " + split[4]);
-//				 System.out.println("5 " + split[5]);
-//				 System.out.println("6 " + split[6]);
-//				 System.out.println("7 " + split[7]);
+				 System.out.println("0 " + split[0]);
+				 System.out.println("1 " + split[1]);
+				 System.out.println("2 " + split[2]);
+				 System.out.println("3 " + split[3]);
+				 System.out.println("4 " + split[4]);
+				 System.out.println("5 " + split[5]);
+				 System.out.println("6 " + split[6]);
+				 System.out.println("7 " + split[7]);
 				 
 				 
-				sql = "INSERT INTO Rooms(RoomID, roomName, northRoom, eastRoom, southRoom, westRoom, upRoom, downRoom, xCoordinate, yCoordinate, zCoordinate, visited, imageName, roomDescription) "
+				sql = "INSERT INTO Rooms(RoomID, roomName, northRoom, eastRoom, southRoom, westRoom, upRoom, downRoom, xCoordinate, yCoordinate, zCoordinate, visited, allowedMonsterRoom, roomDescription) "
 						+ "VALUES(" + split[0] + ", \"" + split[1] + "\",  " 	// roomID  roomName
 						+ split[2] + ", " + split[3] + ", " + split[4] + ", " + split[5] + ", " + split[6] + ", " + split[7] + ", "
 						+ split[8] + ", " + split[9] + ", " + split[10]	+ ", " + split[11]
-						+ ",\"" + split[12] + "\", \"" + split[13] + "\")";
+						+ "," + split[12] + ", \"" + split[13] + "\")";
 				sdb.updateDB(sql);
 			}
 			sdb.close();

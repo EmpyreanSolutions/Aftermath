@@ -22,7 +22,7 @@ public class Room
 	private int zCoordinate;
 	
 	private int visited;
-	private String imageName;
+	private int allowedMonsterRoom;
 	private String roomDescription;
 	
 	public Room()
@@ -42,14 +42,14 @@ public class Room
 		zCoordinate = 0;
 		
 		visited = 0;		
-		imageName = "";		
+		allowedMonsterRoom = 0;;		
 		roomDescription = "";
 	}
 	
 	public Room(int roomID, String roomName, 
 			    int northRoom, int eastRoom, int southRoom, int westRoom, int upRoom, int downRoom, 
 			    int xCoordiante, int yCoordinate, int zCoordinate, int visited, 
-			    String imageName, String roomDescription)
+			    int allowedMonsterRoom, String roomDescription)
 	{
 		this.roomID = roomID;
 		this.roomName = roomName;
@@ -63,7 +63,7 @@ public class Room
 		this.yCoordinate = yCoordinate;
 		this.zCoordinate = zCoordinate;
 		this.visited = visited;
-		this.imageName = imageName;
+		this.allowedMonsterRoom = allowedMonsterRoom;
 		this.roomDescription = roomDescription;
 	}
 
@@ -94,15 +94,14 @@ public class Room
 		this.roomName = roomName;
 	}
 
-	
-	public String getImageName()
+	public int getAllowedMonsterRoom()
 	{
-		return imageName;
+		return allowedMonsterRoom;
 	}
 
-	public void setImageName(String imageName)
+	public void setAllowedMonsterRoom(int allowedMonsterRoom)
 	{
-		this.imageName = imageName;
+		this.allowedMonsterRoom = allowedMonsterRoom;
 	}
 
 	public String getRoomDescription()
@@ -249,6 +248,12 @@ public class Room
 	public boolean hasDownRoom()
 	{
 		if (downRoom > 0) return true;
+		else return false;
+	}
+	
+	public boolean isAllowedMonsterRoom()
+	{
+		if (allowedMonsterRoom == 1) return true;
 		else return false;
 	}
 
