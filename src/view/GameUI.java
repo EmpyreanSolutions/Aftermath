@@ -359,7 +359,7 @@ public class GameUI extends Stage
 		btSound.setOnAction(e ->
 		{
 			returnMessage = gc.targetControl();
-			centerText.appendText("Sound: " + gc.getPlayerRoom().getRoomID() + "  " + returnMessage);
+			centerText.appendText(returnMessage);
 		});
 
 		btExit.setOnAction(e ->
@@ -434,18 +434,18 @@ public class GameUI extends Stage
 		{
 			returnMessage = gc.movePredator();
 			centerText.appendText(returnMessage);
-			if(gc.getTargetRoom().getRoomID() == gc.getPredatorRoom().getRoomID())
-			{
-				centerText.appendText("Predator found TargetRoom!!!");
-				animation.stop();
-				btNorth.setVisible(false);
-				btEast.setVisible(false);
-				btSouth.setVisible(false);
-				btWest.setVisible(false);
-				btUp.setVisible(false);
-				btDown.setVisible(false);
-			}
-			else if (gc.getPlayerRoom().getRoomID() == gc.getPredatorRoom().getRoomID())
+//			if(gc.getTargetRoom().getRoomID() == gc.getPredatorRoom().getRoomID())
+//			{
+//				centerText.appendText("Predator found TargetRoom!!!");
+//				animation.stop();
+//				btNorth.setVisible(false);
+//				btEast.setVisible(false);
+//				btSouth.setVisible(false);
+//				btWest.setVisible(false);
+//				btUp.setVisible(false);
+//				btDown.setVisible(false);
+//			}
+			if (gc.getPlayerRoom().getRoomID() == gc.getPredatorRoom().getRoomID())
 			{
 				centerText.appendText("Predator caught player!!!");
 				animation.stop();
