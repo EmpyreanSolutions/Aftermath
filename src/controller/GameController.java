@@ -195,10 +195,27 @@ public class GameController
 
 	public String targetControl()
 	{
-		;
-		targetRoom = targetRoom.getRoom(playerRoom.getRoomID());
-		returnMessage = targetRoom.getRoomName() + "\n";
+		int targetZ = playerRoom.getzCoordinate();
+		int predatorZ = predatorRoom.getzCoordinate();
+//		System.out.println("targetZ: " + targetZ + "   predatorZ: " + predatorZ);
+		if (targetZ == predatorZ)
+		{
+			targetRoom = targetRoom.getRoom(playerRoom.getRoomID());
+			System.out.println("Predator on same deck as sound");
+		}
+		else if (predatorZ == 9)
+		{
+			targetRoom = targetRoom.getRoom(1005);
+			previousRoomID = 1004;
+//			System.out.println("Predator is on Deck1; Sound is not");
+		}
+		else if (predatorZ == 6)
+		{
+			targetRoom = targetRoom.getRoom(1005);
+			previousRoomID = 1004;			
+		}
 		monsterAggresive = true;
+		returnMessage = "TargetRoom: " + targetRoom.getRoomName() + "\n";
 		return returnMessage;
 	}
 
@@ -244,66 +261,69 @@ public class GameController
 
 			predatorRoom = predatorRoom.getRoom(nextRoomID);
 			// predator.setRoom(predatorRoom);
-			returnMessage = player.getName() + ": " + playerRoom.getRoomName() + "     " + predator.getName() + ": "
+
+			returnMessage = predator.getName() + ": "
 					+ predatorRoom.getRoomName() + "     Target: " + targetRoom.getRoomName() + "\n";
+			if (predatorRoom.getRoomID() == targetRoom.getRoomID())
+			{
+				returnMessage += "   Found targetRoom" + "\n";				
+				monsterAggresive = false;
+			}		
+			
 		}
 		else // monster not aggressive, wandering the allowedMonsterRoom(s)
 		{
-//			System.out.println("previousRoom: " + previousRoomID);
 			possibleMonsterRooms.clear();
 
 			if(predatorRoom.hasNorthRoom() && predatorRoom.getRoom(predatorRoom.getNorthRoom()).isAllowedMonsterRoom()
 					&& (predatorRoom.getNorthRoom() != previousRoomID))
 			{
-//				System.out.println("northRoom: " + predatorRoom.getNorthRoom());
 				possibleMonsterRooms.add(predatorRoom.getNorthRoom());
 			}
 
 			if(predatorRoom.hasEastRoom() && predatorRoom.getRoom(predatorRoom.getEastRoom()).isAllowedMonsterRoom()
 					&& (predatorRoom.getEastRoom() != previousRoomID))
 			{
-//				System.out.println("eastRoom: " + predatorRoom.getEastRoom());
 				possibleMonsterRooms.add(predatorRoom.getEastRoom());
 			}
 			
 			if(predatorRoom.hasSouthRoom() && predatorRoom.getRoom(predatorRoom.getSouthRoom()).isAllowedMonsterRoom()
 					&& (predatorRoom.getSouthRoom() != previousRoomID))
 			{
-//				System.out.println("southRoom: " + predatorRoom.getSouthRoom());
 				possibleMonsterRooms.add(predatorRoom.getSouthRoom());
 			}
 			
 			if(predatorRoom.hasWestRoom() && predatorRoom.getRoom(predatorRoom.getWestRoom()).isAllowedMonsterRoom()
 					&& (predatorRoom.getWestRoom() != previousRoomID))
 			{
-//				System.out.println("westRoom: " + predatorRoom.getWestRoom());
 				possibleMonsterRooms.add(predatorRoom.getWestRoom());
 			}
 			
 			if(predatorRoom.hasUpRoom() && predatorRoom.getRoom(predatorRoom.getUpRoom()).isAllowedMonsterRoom()
 					&& (predatorRoom.getUpRoom() != previousRoomID))
 			{
-//				System.out.println("upRoom: " + predatorRoom.getUpRoom());
 				possibleMonsterRooms.add(predatorRoom.getUpRoom());
 			}
 			
 			if(predatorRoom.hasDownRoom() && predatorRoom.getRoom(predatorRoom.getDownRoom()).isAllowedMonsterRoom()
 					&& (predatorRoom.getDownRoom() != previousRoomID))
 			{
-//				System.out.println("dwonRoom: " + predatorRoom.getDownRoom());
 				possibleMonsterRooms.add(predatorRoom.getDownRoom());
 			}
 			
-//			System.out.println("size: " + possibleMonsterRooms.size());
-//			System.out.println(possibleMonsterRooms);
 			int index = ran.nextInt(possibleMonsterRooms.size());
-//			System.out.println("nextRoomID: " + possibleMonsterRooms.get(index));
+
 			previousRoomID = predatorRoom.getRoomID();
-//			System.out.println("new previousRoomID: " + previousRoomID);
+
 			predatorRoom = predatorRoom.getRoom(possibleMonsterRooms.get(index));
-//			System.out.println();
+
 			returnMessage = predator.getName() + "   " + predatorRoom.getRoomName() + "\n";
-			
+//			if (previousRoomID == 2040 || previousRoomID == 2039)
+//			{
+//				System.out.println("previousRoomID: " + previousRoomID);
+//				System.out.println(possibleMonsterRooms);
+//				System.out.println("index: " + index + "   room: " + possibleMonsterRooms.get(index));
+//			}
 												
 		}
 
