@@ -1,6 +1,6 @@
 package controller;
 
-//import javafx.geometry.Point2D;
+import java.util.ArrayList;
 import javafx.geometry.Point3D;
 import model.RoomDB;
 
@@ -20,6 +20,7 @@ public class Room
 	private int xCoordinate;
 	private int yCoordinate;
 	private int zCoordinate;
+	private Point3D point;
 	
 	private int visited;
 	private int allowedMonsterRoom;
@@ -40,7 +41,7 @@ public class Room
 		xCoordinate = 0;
 		yCoordinate = 0;
 		zCoordinate = 0;
-		
+		point = new Point3D(0,0,0);		
 		visited = 0;		
 		allowedMonsterRoom = 0;;		
 		roomDescription = "";
@@ -65,6 +66,14 @@ public class Room
 		this.visited = visited;
 		this.allowedMonsterRoom = allowedMonsterRoom;
 		this.roomDescription = roomDescription;
+		
+		this.point = new Point3D(xCoordinate, yCoordinate, zCoordinate);
+	}
+	
+	public ArrayList<Room> getAllRooms()
+	{
+		RoomDB rdb = new RoomDB();
+		return rdb.getAllRooms();
 	}
 
 	public Room getRoom(int id) //throws SQLException
@@ -78,11 +87,11 @@ public class Room
 		return roomID;
 	}
 
-	// Do not allow developer to revise roomID!
-//	public void setRoomID(int roomID)
-//	{
-//		this.roomID = roomID;
-//	}
+	// Need for getAllRooms in RoomDB.java
+	public void setRoomID(int roomID)
+	{
+		this.roomID = roomID;
+	}
 
 	public String getRoomName()
 	{
@@ -214,6 +223,16 @@ public class Room
 		this.zCoordinate = zCoordinate;
 	}
 
+
+	public Point3D getPoint()
+	{
+		return point;
+	}
+
+	public void setPoint(Point3D pt)
+	{
+		this.point = pt;
+	}
 
 	public boolean hasNorthRoom()
 	{
