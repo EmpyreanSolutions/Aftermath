@@ -17,10 +17,10 @@ public class Graph
 		return nodes;
 	}
 
-	public void setNodes(Set<Node> nodes)
-	{
-		this.nodes = nodes;
-	}
+//	public void setNodes(Set<Node> nodes)
+//	{
+//		this.nodes = nodes;
+//	}
 	
 	
 }
