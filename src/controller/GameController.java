@@ -29,13 +29,6 @@ public class GameController
 	private Room targetRoom;
 	private String returnMessage;
 
-//	private Point3D ptPredator;
-//	private Point3D ptTarget;
-//	private Point3D ptNorth;
-//	private Point3D ptEast;
-//	private Point3D ptSouth;
-//	private Point3D ptWest;
-
 	boolean monsterAggresive;
 	private ArrayList<Integer> possibleMonsterRooms;
 	private int previousRoomID;
@@ -53,12 +46,6 @@ public class GameController
 		player = new Player("Kenneth");
 		predator = new Lifeform("Specimen #0089");
 		returnMessage = "";
-//		ptPredator = predatorRoom.getCenter();
-//		ptTarget = playerRoom.getCenter();
-//		ptNorth = new Point3D(0, 1, 0);
-//		ptEast = new Point3D(1, 0, 0);
-//		ptSouth = new Point3D(0, -1, 0);
-//		ptWest = new Point3D(-1, 0, 0);
 
 		monsterAggresive = false;
 		previousRoomID = 0;
@@ -67,7 +54,6 @@ public class GameController
 
 		nodes = new Node().getAllNodes();
 		targetIndex = 0;
-
 	}
 
 	/**
@@ -230,7 +216,6 @@ public class GameController
 		returnMessage = "TargetRoom: " + targetRoom.getRoomName() + "\n";
 
 		// Nodes
-
 		for(int index = 0; index < nodes.size(); index++)
 		{
 			if(nodes.get(index).hasNorthRoom())
@@ -307,24 +292,8 @@ public class GameController
 			}
 		}
 
-//		for(int index = 0; index < nodes.size(); index++)
-//		{
-//			Set<Node> keySet = nodes.get(index).getAdjacentNodes().keySet();
-//			System.out.print("Room: " + nodes.get(index).getRoomID() + "   ");
-//			for(Node key : keySet)
-//			{
-//				int d = nodes.get(index).getAdjacentNodes().get(key);
-//				System.out.print(key.getRoomID() + "  " + d);
-//				System.out.print("   ");
-//			}
-//			System.out.println();
-//		}
-		
-		Graph graph = new Graph();
-
 		for (int index = 0; index < nodes.size(); index++)
 		{
-			graph.addNode(nodes.get(index));
 			if (nodes.get(index).getRoomID() == predatorRoom.getRoomID())
 			{
 				sourceNode = nodes.get(index);
@@ -335,10 +304,9 @@ public class GameController
 			}
 		}
 		
-		graph = this.calculateShortestPathFromSource(graph, sourceNode);
-		
-		Set<Node> nodes2 = graph.getNodes();
-		for (Node node : nodes2)
+		calculateShortestPathFromSource(sourceNode);		
+
+		for (Node node : nodes)
 		{
 			if (node.getRoomID() == targetRoom.getRoomID())
 			{
@@ -347,16 +315,11 @@ public class GameController
 		}
 		
 		targetNode.getShortestPath().add(targetNode);
-//		for (int index = 0; index < targetNode.getShortestPath().size(); index++)
-//		{
-//			System.out.println(targetNode.getShortestPath().get(index).getRoomID()
-//					+ "  " + targetNode.getShortestPath().get(index).getRoomName());
-//		}
 
 		return returnMessage;
 	}
 	
-	private Graph calculateShortestPathFromSource(Graph graph, Node source)
+	private void calculateShortestPathFromSource(Node source)
 	{
 		source.setDistance(0);
 		
@@ -381,7 +344,7 @@ public class GameController
 			}
 			settledNodes.add(currentNode);
 		}
-		return graph;
+		return;
 	}
 
 	private Node getLowestDistanceNode(Set <Node> unsettledNodes)
@@ -415,48 +378,12 @@ public class GameController
 	
 	public String movePredator()
 	{
-//		ptTarget = targetRoom.getCenter();
-//		ptPredator = predatorRoom.getCenter();
-
 		if(monsterAggresive)
 		{
 			int nextRoomID = targetNode.getShortestPath().get(targetIndex).getRoomID();
 			targetIndex++;
 			
-//			int iAngleNorth = (int) Math.round(ptPredator.angle(ptTarget, ptPredator.add(ptNorth)));
-//			int iAngleEast = (int) Math.round(ptPredator.angle(ptTarget, ptPredator.add(ptEast)));
-//			int iAngleSouth = (int) Math.round(ptPredator.angle(ptTarget, ptPredator.add(ptSouth)));
-//			int iAngleWest = (int) Math.round(ptPredator.angle(ptTarget, ptPredator.add(ptWest)));
-//
-//			int minAngle = 400;
-//			int nextRoomID = 0;
-//
-//			if(predatorRoom.hasNorthRoom() && (iAngleNorth < minAngle))
-//			{
-//				minAngle = iAngleNorth;
-//				nextRoomID = predatorRoom.getNorthRoom();
-//			}
-//
-//			if(predatorRoom.hasEastRoom() && (iAngleEast < minAngle))
-//			{
-//				minAngle = iAngleEast;
-//				nextRoomID = predatorRoom.getEastRoom();
-//			}
-//
-//			if(predatorRoom.hasSouthRoom() && (iAngleSouth < minAngle))
-//			{
-//				minAngle = iAngleSouth;
-//				nextRoomID = predatorRoom.getSouthRoom();
-//			}
-//
-//			if(predatorRoom.hasWestRoom() && (iAngleWest < minAngle))
-//			{
-//				minAngle = iAngleWest;
-//				nextRoomID = predatorRoom.getWestRoom();
-//			}
-//
 			predatorRoom = predatorRoom.getRoom(nextRoomID);
-//			// predator.setRoom(predatorRoom);
 
 			returnMessage = predator.getName() + ": " + predatorRoom.getRoomName() + "     Target: "
 					+ targetRoom.getRoomName() + "\n";
@@ -514,14 +441,6 @@ public class GameController
 			predatorRoom = predatorRoom.getRoom(possibleMonsterRooms.get(index));
 
 			returnMessage = predator.getName() + "   " + predatorRoom.getRoomName() + "\n";
-			// if (previousRoomID == 2040 || previousRoomID == 2039)
-			// {
-			// System.out.println("previousRoomID: " + previousRoomID);
-			// System.out.println(possibleMonsterRooms);
-			// System.out.println("index: " + index + " room: " +
-			// possibleMonsterRooms.get(index));
-			// }
-
 		}
 
 		return returnMessage;
